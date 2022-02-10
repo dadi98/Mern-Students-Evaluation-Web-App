@@ -3,23 +3,43 @@ import { Schema, model } from 'mongoose';
 import Student from '../interfaces/student';
 
 const studentSchema: Schema = new Schema<Student>({
-    name: {
+    studentId: {
         type: String,
         required: true,
         unique: true
     },
-    cardId: {
-        type: Number,
+    firstName: {
+        type: String,
         required: true,
-        unique: true
     },
-    promo: {
+    lastName: {
+        type: String,
+        required: true,
+    },
+    sex: {
         type: String,
         required: true
     },
-    group: {
-        type: Number,
-    }
+    birthDate: {
+        type: String,
+        required: true,
+    },
+    birthPlace: {
+        type: String,
+        required: true,
+    },
+    degree: {
+        type: String,
+        required: true,
+    },
+    level: {
+        type: String,
+        required: true,
+    },
+    registrationStatus: {
+        type: String,
+        required: true,
+    },
 },{
     timestamps: true
 });

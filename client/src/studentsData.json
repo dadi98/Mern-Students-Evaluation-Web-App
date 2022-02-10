@@ -1,0 +1,81 @@
+[{
+  "_id": {
+    "$oid": "6203cb3658ae69d58a8826ab"
+  },
+  "studentId": "161635066056",
+  "firstName": "moncef",
+  "lastName": "bend",
+  "sex": "male",
+  "birthDate": "1998-06-19",
+  "birthPlace": "setif",
+  "degree": "Master",
+  "level": "M2",
+  "registrationStatus": "valid",
+  "createdAt": {
+    "$date": "2022-02-09T14:09:58.166Z"
+  },
+  "updatedAt": {
+    "$date": "2022-02-09T14:09:58.166Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6203cc2658ae69d58a8826b5"
+  },
+  "studentId": "181835066658",
+  "firstName": "karim",
+  "lastName": "roub",
+  "sex": "male",
+  "birthDate": "2000-02-15",
+  "birthPlace": "skikda",
+  "degree": "Licence",
+  "level": "L3",
+  "registrationStatus": "valid",
+  "createdAt": {
+    "$date": "2022-02-09T14:13:58.590Z"
+  },
+  "updatedAt": {
+    "$date": "2022-02-09T14:13:58.590Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6203cc7a58ae69d58a8826b9"
+  },
+  "studentId": "171762035066",
+  "firstName": "souad",
+  "lastName": "massi",
+  "sex": "female",
+  "birthDate": "1999-11-19",
+  "birthPlace": "setif",
+  "degree": "Master",
+  "level": "M1",
+  "registrationStatus": "non-valid",
+  "createdAt": {
+    "$date": "2022-02-09T14:15:22.035Z"
+  },
+  "updatedAt": {
+    "$date": "2022-02-09T14:15:22.035Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6203ccb158ae69d58a8826bd"
+  },
+  "studentId": "151532033355",
+  "firstName": "nihad",
+  "lastName": "abass",
+  "sex": "female",
+  "birthDate": "2001-12-12",
+  "birthPlace": "alger",
+  "degree": "Licence",
+  "level": "L3",
+  "registrationStatus": "valid",
+  "createdAt": {
+    "$date": "2022-02-09T14:16:17.698Z"
+  },
+  "updatedAt": {
+    "$date": "2022-02-09T14:16:17.698Z"
+  },
+  "__v": 0
+}]

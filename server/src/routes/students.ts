@@ -14,7 +14,9 @@ studentRouter.route('/')
         return res.status(200).setHeader('Content-Type', 'application/json').json(students);
     }
     catch(err){
-        next(err);
+        if(err instanceof Error) {
+            next(err);
+        }
     }  
 })
 .post(async(req: Request, res: Response, next: NextFunction) => {
@@ -23,7 +25,20 @@ studentRouter.route('/')
         return res.status(200).setHeader('Content-Type', 'application/json').json(student);
     }
     catch(err){
-        next(err);
+        if(err instanceof Error) {
+            next(err);
+        }
+    }
+})
+.delete(async(req: Request, res: Response, next: NextFunction) => {
+    try{
+        let students: Student[] = await Students.remove({});
+        return res.status(200).setHeader('Content-Type', 'application/json').json(students);
+    }
+    catch(err){
+        if(err instanceof Error) {
+            next(err);
+        }
     }
 });
 
@@ -32,10 +47,14 @@ studentRouter.route('/:studentId')
     const { studentId } = req.params;
     try{
         let student: Student | null = await Students.findById(studentId);
-        return res.status(200).setHeader('Content-Type', 'application/json').json(student);
+
+        return student ? res.status(200).setHeader('Content-Type', 'application/json').json(student) : 
+                         res.status(404).setHeader('Content-Type', 'plain/text').send(`Student with id: ${studentId} does not exist`);
     }
     catch(err){
-        next(err);
+        if(err instanceof Error) {
+            next(err);
+        }
     }  
 })
 .put(async(req: Request, res: Response, next: NextFunction) => {
@@ -47,7 +66,9 @@ studentRouter.route('/:studentId')
         return res.status(200).setHeader('Content-Type', 'application/json').json(student);
     }
     catch(err){
-        next(err);
+        if(err instanceof Error) {
+            next(err);
+        }
     }
 })
 .delete(async(req: Request, res: Response, next: NextFunction) => {
@@ -57,7 +78,9 @@ studentRouter.route('/:studentId')
         return res.status(200).json({ message: 'student deleted successfully.' });
     }
     catch(err){
-        next(err);
+        if(err instanceof Error) {
+            next(err);
+        }
     }
 });
 

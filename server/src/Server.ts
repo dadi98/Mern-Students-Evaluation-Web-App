@@ -31,6 +31,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(cookieParser());
 
+
 // Show routes called in console during development
 if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
@@ -40,6 +41,14 @@ if (process.env.NODE_ENV === 'development') {
 if (process.env.NODE_ENV === 'production') {
     app.use(helmet());
 }
+var allowCrossDomain = function(req: Request, res: Response, next: NextFunction) {
+    res.header('Access-Control-Allow-Origin', "*");
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+};
+
+app.use(allowCrossDomain);
 
 // Add APIs
 app.use('/api', BaseRouter);

@@ -1,6 +1,11 @@
 export default interface Student {
-    name: string;
-    cardId: number;
-    promo: string;
-    group: number;
+    studentId: string;
+    firstName: string;
+    lastName: string;
+    sex: string;
+    birthDate: string;
+    birthPlace: string;
+    degree: string;
+    level: string;
+    registrationStatus: string;
 }
