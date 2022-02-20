@@ -26,12 +26,13 @@ export default function StudentComponent () {
   const [q, setQ] = React.useState<string>('');
   const [searchParam] = React.useState<Array<string>>(["studentId", "firstName", "lastName", "level", "registrationStatus"]);
   
-   console.log(rows);
+  // console.log(rows);
   React.useEffect(() => {
     const getStudents = async(): Promise<Array<Student> | string | undefined> => {
       try {
         const { data } = await axios.get('http://localhost:3000/students');
         setRows(data);
+        //console.log(data);
           return data;
       } catch (err) {
         if(err instanceof Error){
@@ -107,8 +108,8 @@ export default function StudentComponent () {
       </div>
       <div>
         <Button variant="primary" onClick={() => setAddModal(true)} >Add student</Button>
-        <Button variant="primary" onClick={() => setRefresh(!refresh)} >Refresh</Button>
-        <Button variant="secondary" onClick={() => setDeleteAllModal(true)} >Delete All</Button>
+        <Button variant="secondary" onClick={() => setRefresh(!refresh)} >Refresh</Button>
+        <Button variant="primary" onClick={() => setDeleteAllModal(true)} >Delete All</Button>
 
         {addModal && <AddStudent show={addModal} onHide={() => setAddModal(false)}/>}
         {deleteModal && <DeleteStudent show={deleteModal} onHide={() => setDeleteModal(false)} id={id}/>}

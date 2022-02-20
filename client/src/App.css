@@ -40,3 +40,12 @@
 .all {
   width: 70%;
 }
+.toggle-button {
+  background: transparent;
+  border: 0;
+  bottom: 0;
+  padding: 0 12px;
+  position: absolute;
+  right: 0;
+  top: 0;
+}

@@ -12,6 +12,7 @@ import logger from '@shared/Logger';
 import mongoose from 'mongoose';
 
 import studentRouter from './routes/students'
+import moduleRouter from './routes/modules';
 
 const app = express();
 const { BAD_REQUEST } = StatusCodes;
@@ -53,6 +54,7 @@ app.use(allowCrossDomain);
 // Add APIs
 app.use('/api', BaseRouter);
 app.use('/students', studentRouter);
+app.use('/modules', moduleRouter);
 
 // Print API errors
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
