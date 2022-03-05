@@ -78,7 +78,7 @@ export default function ModulesComponent () {
   const postUpdates = () => {
     try {
       filtered.forEach(async(course) =>{ await axios.put(`http://localhost:3000/modules/${course._id}`, course); console.log(course); } )
-      setUpdateToggle(false);
+      setUpdateToggle(false);  
       
     } catch (err) {
       if(err instanceof Error){
@@ -177,7 +177,7 @@ export default function ModulesComponent () {
                                            <td>{item.examCoef}</td>
                                            <td>{item.teacher}</td>
                                          </>}
-                
+                  
               </tr>
             ))}
           </tbody>

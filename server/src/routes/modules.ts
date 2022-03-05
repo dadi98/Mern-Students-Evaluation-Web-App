@@ -46,9 +46,9 @@ moduleRouter.route('/:moduleId')
 .get(async(req: Request, res: Response, next: NextFunction) => {
     const { moduleId } = req.params;
     try{
-        let module: Module | null = await Modules.findById(moduleId);
+        let course: Module | null = await Modules.findById(moduleId);
 
-        return module ? res.status(200).setHeader('Content-Type', 'application/json').json(module) : 
+        return course ? res.status(200).setHeader('Content-Type', 'application/json').json(course) : 
                          res.status(404).setHeader('Content-Type', 'plain/text').send(`Student with id: ${moduleId} does not exist`);
     }
     catch(err){
