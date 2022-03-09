@@ -18,6 +18,9 @@ const moduleSchema: Schema = new Schema<Module>({
     promotion: {
         type: String,
         required: true
+        /*type: Schema.Types.ObjectId,
+        ref: 'promotion',
+        required: true*/
     },
     semester: {
         type: String,

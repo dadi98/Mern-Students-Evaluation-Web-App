@@ -6,78 +6,68 @@ import axios from 'axios';
 import * as React from 'react';
 import { Row, Col, Button, Form, Table, DropdownButton, Dropdown } from 'react-bootstrap';
 
-interface Module {
-  [key: string]: string | number;
-  name: string;
-  teacher: string;
-  type: string;
-  promotion: string;
-  semester: string;
-  coef: number;
-  controlCoef: number;
-  examCoef: number;
-}
-
 export default function ModulesComponent () {
 
-  const [modules, setModules] = React.useState<Array<Module>>([]);
-  const [filtered, setFiltered] = React.useState<Array<Module>>([]);
+  const [modules, setModules] = React.useState([]);
+  const [filtered, setFiltered] = React.useState([]);
+ 
+  const [teachers, setTeachers] = React.useState([]);
 
-  const [teachers, setTeachers] = React.useState<Array<string>>([]);
-
-  const [error, setError] = React.useState<string>();
-  //console.log(teachers)
-  const [updateToggle, setUpdateToggle] = React.useState<boolean>(false);
-  const [editTeacher, setEditTeacher] = React.useState<boolean>(false);
+  const [error, setError] = React.useState();
+  //console.log(filtered)
+  
+  const [updateToggle, setUpdateToggle] = React.useState(false);
 
   const [q, setQ] = React.useState({promotion: '', semester: ''});
-  const [qTeacher, setQTeacher] = React.useState<string>('');
 
+  //const [qTeacher, setQTeacher] = React.useState('');
+  //console.log(q)
   //const [searchParam] = React.useState<Array<string>>(["promotion", "semester"]);
   
   React.useEffect(() => {
-    const getModules = async(): Promise<Array<Module> | string | undefined> => {
+    const getModules = async() => {
       try {
         const { data } = await axios.get('http://localhost:3000/modules')
         setModules(data);
-        setTeachers(data.map((item: Module) => item.teacher))
-        
-        
-        return data;
+
+        setTeachers(data.map(item => item.teacher));
+    
       } catch (err) {
         if(err instanceof Error){
           setError(err.message);
-          return err.message;
+          console.log(error);
+      
         }
       }
 
     }
     getModules();
-  }, [updateToggle]);
+  }, [error]);
 
-  const Search = (items: Module[]) => {
-    return items.filter(item => item.promotion == q.promotion && item.semester == q.semester)
+  const Search = (items) => {
+    console.log(1)
+    return items.filter(item =>  item.promotion === q.promotion && item.semester === q.semester )
   }
   
-  const updateControlCoef = (e: React.ChangeEvent<HTMLInputElement> , item: Module) => {
+  const updateControlCoef = (e , item) => {
     setFiltered(filtered.map(course =>
-            (course.name == item.name ? {...course, controlCoef: (e.target as any).value} : course)
+            (course.name === item.name ? {...course, controlCoef: e.target.value} : course)
       ))
   }
-  const updateExamCoef = (e: React.ChangeEvent<HTMLInputElement> , item: Module) => {
+  const updateExamCoef = (e , item) => {
     setFiltered(filtered.map(course =>
-            (course.name == item.name ? {...course, examCoef: (e.target as any).value} : course)
+            (course.name === item.name ? {...course, examCoef: e.target.value} : course)
       ))
   }
-  const updateTeacher = (e: React.ChangeEvent<HTMLSelectElement> , item: Module) => {
+  const updateTeacher = (e, item) => {
     setFiltered(filtered.map(course =>
-            (course.name == item.name ? {...course, teacher: (e.target as typeof e.target).value} : course)
+            (course.name === item.name ? {...course, teacher: e.target.value} : course)
       ))
   }
 
   const postUpdates = () => {
     try {
-      filtered.forEach(async(course) =>{ await axios.put(`http://localhost:3000/modules/${course._id}`, course); console.log(course); } )
+      filtered.forEach(async(course) =>{ await axios.put(`http://localhost:3000/modules/${course._id}`, course); } )
       setUpdateToggle(false);  
       
     } catch (err) {
@@ -89,11 +79,7 @@ export default function ModulesComponent () {
   //console.log(q.promotion)
   //console.log(q.semester)
   
-  interface UpdateTeacherProps {
-    item: Module;
-  }
-  
-  const TeacherUpdate = ({item}: UpdateTeacherProps) => {
+  const TeacherUpdate = ({item}) => {
     
     /*const Search = (teachers: string[]) => {
       return teachers.filter(teacher => teacher.toLowerCase().indexOf(qTeacher.toLowerCase()) > -1)
@@ -120,7 +106,7 @@ export default function ModulesComponent () {
           <Col xs={12} md={3}>
             <Form.Group className="mb-3" >
               <Form.Label>Promotion</Form.Label>
-              <Form.Select  onChange={(e) => setQ(state => ({...state, promotion: (e.target as typeof e.target).value}))} aria-label="promotion select">
+              <Form.Select  onChange={(e) => setQ(state => ({...state, promotion: e.target.value}))} aria-label="promotion select">
                   <option >choose..</option>
                   <option value="L1" >L1</option>
                   <option value="L2" >L2</option>
@@ -133,7 +119,7 @@ export default function ModulesComponent () {
           <Col xs={12} md={3}>
             <Form.Group className="mb-3" >
               <Form.Label>Semester</Form.Label>
-              <Form.Select  onChange={(e) => setQ(state => ({...state, semester: (e.target as typeof e.target).value}))} aria-label="semester select">
+              <Form.Select  onChange={(e) => setQ(state => ({...state, semester: e.target.value}))} aria-label="semester select">
                   <option >choose..</option>
                   <option value="1" >semester 1</option>
                   <option value="2" >semester 2</option>
@@ -168,9 +154,9 @@ export default function ModulesComponent () {
                 <td>{item.type}</td>
                 {updateToggle ?  <>
                                   <td><Form.Control type="search" value={item.controlCoef}
-                                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateControlCoef(e, item)}/></td>
+                                                    onChange={e => updateControlCoef(e, item)}/></td>
                                   <td><Form.Control type="search" value={item.examCoef}
-                                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateExamCoef(e, item)}/></td>
+                                                    onChange={e => updateExamCoef(e, item)}/></td>
                                   <td><TeacherUpdate item={item} /></td>
                                  </>  :  <>
                                            <td>{item.controlCoef}</td>

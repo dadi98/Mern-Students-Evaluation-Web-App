@@ -48,7 +48,7 @@ promotionRouter.route('/:promotionId')
 .get(async(req: Request, res: Response, next: NextFunction) => {
     const { promotionId } = req.params;
     try{
-        let promotion: Promotion | null = await Promotions.findById(promotionId);
+        let promotion: Promotion | null = await Promotions.findById(promotionId).populate('groups.students');;
 
         return promotion ? res.status(200).setHeader('Content-Type', 'application/json').json(promotion) : 
                          res.status(404).setHeader('Content-Type', 'plain/text').send(`Promotion with id: ${promotionId} does not exist`);
@@ -153,7 +153,7 @@ promotionRouter.route('/:promotionId/groups/:groupId')
 .get(async(req: Request, res: Response, next: NextFunction) => {
     const { promotionId, groupId } = req.params;
     try{
-        let promotion: Promotion | null = await Promotions.findById(promotionId);
+        let promotion: Promotion | null = await Promotions.findById(promotionId).populate('groups.students');
         //console.log(promotion);
         let group: Group = promotion!.groups.filter(group => group._id == groupId )[0];
         //console.log(group);

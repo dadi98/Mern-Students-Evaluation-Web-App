@@ -10,7 +10,7 @@ studentRouter.use(bodyParser.json());
 studentRouter.route('/')
 .get(async(req: Request, res: Response, next: NextFunction) =>{
     try{
-        let students: Student[] = await Students.find({});
+        let students: Student[] = await Students.find(req.query);
         return res.status(200).setHeader('Content-Type', 'application/json').json(students);
     }
     catch(err){

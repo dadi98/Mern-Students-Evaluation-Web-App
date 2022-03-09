@@ -10,7 +10,7 @@ moduleRouter.use(bodyParser.json());
 moduleRouter.route('/')
 .get(async(req: Request, res: Response, next: NextFunction) =>{
     try{
-        let modules: Module[] = await Modules.find({});
+        let modules: Module[] = await Modules.find({}).populate('promotion');
         return res.status(200).setHeader('Content-Type', 'application/json').json(modules);
     }
     catch(err){

@@ -30,6 +30,10 @@ const promotionSchema: Schema = new Schema<Promotion>({
         type: String,
         required: true,
     },
+    numberOfGroups: {
+        type: Number,
+        required: true,
+    },
     groups: [groupSchema]
 },{
     timestamps: true

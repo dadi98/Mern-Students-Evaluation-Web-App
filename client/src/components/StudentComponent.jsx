@@ -3,8 +3,6 @@ import axios from 'axios';
 
 import { Row, Col, Button, Form, Table, DropdownButton, Dropdown } from 'react-bootstrap';
 
-import { Student } from './interfaces';
-
 import AddStudent from './AddStudent';
 import DeleteStudent from './DeleteStudent';
 import EditStudent from './EditStudent';
@@ -12,23 +10,23 @@ import DeleteAll from './DeleteAll';
 
 export default function StudentComponent () {
 
-  const [rows, setRows] = React.useState<Array<Student>>([]);
-  const [error, setError] = React.useState<string>();
+  const [rows, setRows] = React.useState([]);
+  const [error, setError] = React.useState();
 
-  const [addModal, setAddModal] = React.useState<boolean>(false);
-  const [deleteModal, setDeleteModal] = React.useState<boolean>(false);
-  const [deleteAllModal, setDeleteAllModal] = React.useState<boolean>(false);
-  const [editModal, setEditModal] = React.useState<boolean>(false);
-  const [id, setId] = React.useState<string>();
+  const [addModal, setAddModal] = React.useState(false);
+  const [deleteModal, setDeleteModal] = React.useState(false);
+  const [deleteAllModal, setDeleteAllModal] = React.useState(false);
+  const [editModal, setEditModal] = React.useState(false);
+  const [id, setId] = React.useState();
   
-  const [refresh, setRefresh] = React.useState<boolean>(false);
+  const [refresh, setRefresh] = React.useState(false);
 
-  const [q, setQ] = React.useState<string>('');
-  const [searchParam] = React.useState<Array<string>>(["studentId", "firstName", "lastName", "level", "registrationStatus"]);
+  const [q, setQ] = React.useState('');
+  const [searchParam] = React.useState(["studentId", "firstName", "lastName", "level", "registrationStatus"]);
   
   // console.log(rows);
   React.useEffect(() => {
-    const getStudents = async(): Promise<Array<Student> | string | undefined> => {
+    const getStudents = async() => {
       try {
         const { data } = await axios.get('http://localhost:3000/students');
         setRows(data);
@@ -37,6 +35,7 @@ export default function StudentComponent () {
       } catch (err) {
         if(err instanceof Error){
           setError(err.message);
+          console.log(error)
           return err.message;
         }
       }
@@ -45,9 +44,9 @@ export default function StudentComponent () {
     getStudents();
     //getStudents().then(value => (typeof value === "string") ? 
     //setError(value) : (typeof value === "student[]") ? setRows(value) : setError(value))
-  }, [refresh, addModal, deleteModal, deleteAllModal, editModal]);
+  }, [refresh, addModal, deleteModal, deleteAllModal, editModal, error]);
 
-  const Search = (items: Student[]) => {
+  const Search = (items) => {
     return items.filter(item => 
                         searchParam.some(param => 
                                          item[param].toString().toLowerCase().indexOf(q.toLowerCase()) > -1))
@@ -63,7 +62,7 @@ export default function StudentComponent () {
             </Col>
             <Col lg={3}>
               <Form.Control type="search" placeholder="search for a student" value={q}
-                                    onChange={(e) => setQ((e.target as typeof e.target).value)}/>
+                                    onChange={(e) => setQ(e.target.value)}/>
             </Col>
           </Row>
         </Form.Group>

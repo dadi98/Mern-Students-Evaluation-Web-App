@@ -1,11 +1,11 @@
 import * as React from 'react';
 import axios from 'axios';
 import { Modal, Button} from 'react-bootstrap';
-import { modal } from './interfaces';
 
-const DeleteStudent = ({show, onHide, id}: modal): JSX.Element => {
+
+const DeleteStudent = ({show, onHide, id}) => {
   
-    const deleteStudent = async(e: React.MouseEvent<HTMLElement>) => {
+    const deleteStudent = async(e) => {
       //const id = window.location.hash.substring(1);
       console.log(id);
       e.preventDefault();
