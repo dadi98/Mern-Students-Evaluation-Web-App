@@ -16,11 +16,15 @@ const moduleSchema: Schema = new Schema<Module>({
         required: true,
     },
     promotion: {
+        /*type: String,
+        required: true*/
+        type: Schema.Types.ObjectId,
+        ref: 'promotion',
+        required: true
+    },
+    major: {
         type: String,
         required: true
-        /*type: Schema.Types.ObjectId,
-        ref: 'promotion',
-        required: true*/
     },
     semester: {
         type: String,

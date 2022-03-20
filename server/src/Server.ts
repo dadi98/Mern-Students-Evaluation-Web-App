@@ -14,6 +14,7 @@ import mongoose from 'mongoose';
 import studentRouter from './routes/students'
 import moduleRouter from './routes/modules';
 import promotionRouter from './routes/promotions';
+import gradeRouter from './routes/grades';
 
 const app = express();
 const { BAD_REQUEST } = StatusCodes;
@@ -57,6 +58,7 @@ app.use('/api', BaseRouter);
 app.use('/students', studentRouter);
 app.use('/modules', moduleRouter);
 app.use('/promotions', promotionRouter)
+app.use('/grades', gradeRouter)
 
 // Print API errors
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

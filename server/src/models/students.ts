@@ -18,15 +18,15 @@ const studentSchema: Schema = new Schema<Student>({
     },
     sex: {
         type: String,
-        required: true
+        //required: true
     },
     birthDate: {
         type: String,
-        required: true,
+        //required: true,
     },
     birthPlace: {
         type: String,
-        required: true,
+       // required: true,
     },
     degree: {
         type: String,
@@ -38,7 +38,7 @@ const studentSchema: Schema = new Schema<Student>({
     },
     registrationStatus: {
         type: String,
-        required: true,
+        //required: true,
     },
 },{
     timestamps: true

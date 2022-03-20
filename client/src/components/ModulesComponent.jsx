@@ -10,15 +10,15 @@ export default function ModulesComponent () {
 
   const [modules, setModules] = React.useState([]);
   const [filtered, setFiltered] = React.useState([]);
- 
   const [teachers, setTeachers] = React.useState([]);
+  const [promotions, setPromotions] = React.useState([]);
 
   const [error, setError] = React.useState();
   //console.log(filtered)
   
   const [updateToggle, setUpdateToggle] = React.useState(false);
 
-  const [q, setQ] = React.useState({promotion: '', semester: ''});
+  const [q, setQ] = React.useState({major: '', semester: ''});
 
   //const [qTeacher, setQTeacher] = React.useState('');
   //console.log(q)
@@ -27,10 +27,12 @@ export default function ModulesComponent () {
   React.useEffect(() => {
     const getModules = async() => {
       try {
-        const { data } = await axios.get('http://localhost:3000/modules')
-        setModules(data);
+        const  modulesData  = await axios.get('http://localhost:3000/modules')
+        const promotionsData  = await axios.get('http://localhost:3000/promotions')
 
-        setTeachers(data.map(item => item.teacher));
+        setModules(modulesData.data);
+        setPromotions(promotionsData.data)
+        setTeachers(modulesData.data.map(item => item.teacher));
     
       } catch (err) {
         if(err instanceof Error){
@@ -45,10 +47,10 @@ export default function ModulesComponent () {
   }, [error]);
 
   const Search = (items) => {
-    console.log(1)
-    return items.filter(item =>  item.promotion === q.promotion && item.semester === q.semester )
+    //console.log(1)
+    return items.filter(item =>  item.major === q.major && item.semester === q.semester )
   }
-  
+  console.log(Search(modules));
   const updateControlCoef = (e , item) => {
     setFiltered(filtered.map(course =>
             (course.name === item.name ? {...course, controlCoef: e.target.value} : course)
@@ -62,6 +64,11 @@ export default function ModulesComponent () {
   const updateTeacher = (e, item) => {
     setFiltered(filtered.map(course =>
             (course.name === item.name ? {...course, teacher: e.target.value} : course)
+      ))
+  }
+  const updatePromotion = (e, item) => {
+    setFiltered(filtered.map(course =>
+            (course.name === item.name ? {...course, promotion: e.target.value} : course)
       ))
   }
 
@@ -97,6 +104,26 @@ export default function ModulesComponent () {
       </>
     );
   }
+  const PromotionUpdate = ({item}) => {
+    
+    /*const Search = (teachers: string[]) => {
+      return teachers.filter(teacher => teacher.toLowerCase().indexOf(qTeacher.toLowerCase()) > -1)
+    }*/
+
+    return (
+      <>
+        <Form.Select onChange={(e) => updatePromotion(e, item)}/*value={`${item.promotion?.year}${item.promotion?.major}`}*/
+                                                                 aria-label="year select">
+          
+          <option value=""  >None</option>
+          {
+            promotions.map(promotion => <option selected={promotion.major===item.promotion?.major ? "selected" : ""}
+                                                value={promotion._id} >{promotion.year} {promotion.major}</option>)
+          }
+        </Form.Select>
+      </>
+    );
+  }
   
 
   return (
@@ -106,7 +133,7 @@ export default function ModulesComponent () {
           <Col xs={12} md={3}>
             <Form.Group className="mb-3" >
               <Form.Label>Promotion</Form.Label>
-              <Form.Select  onChange={(e) => setQ(state => ({...state, promotion: e.target.value}))} aria-label="promotion select">
+              <Form.Select  onChange={(e) => setQ(state => ({...state, major: e.target.value}))} aria-label="promotion select">
                   <option >choose..</option>
                   <option value="L1" >L1</option>
                   <option value="L2" >L2</option>
@@ -145,6 +172,8 @@ export default function ModulesComponent () {
               <th>Control Coefficient</th>
               <th>Exam Coefficient</th>
               <th>Teacher</th>
+              <th>Promotion</th>
+
             </tr>
           </thead>
           <tbody>
@@ -158,10 +187,13 @@ export default function ModulesComponent () {
                                   <td><Form.Control type="search" value={item.examCoef}
                                                     onChange={e => updateExamCoef(e, item)}/></td>
                                   <td><TeacherUpdate item={item} /></td>
+                                  <td><PromotionUpdate item={item} /></td>
+
                                  </>  :  <>
                                            <td>{item.controlCoef}</td>
                                            <td>{item.examCoef}</td>
                                            <td>{item.teacher}</td>
+                                           <td>{item.promotion?.year} {item.promotion?.major}</td>
                                          </>}
                   
               </tr>

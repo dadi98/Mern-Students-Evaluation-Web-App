@@ -4,7 +4,9 @@ import StudentComponent from './components/StudentComponent';
 import ModulesComponent from './components/ModulesComponent';
 import PromotionComponent from './components/PromotionComponent';
 import GroupComponent from './components/GroupComponent';
-import AssignStudents from './components/AssignStudents'
+import AssignStudents from './components/AssignStudents';
+import GradeComponent from './components/GradeComponent';
+import DelibirationComponent from './components/DelibirationComponent';
 
 function App() {
   
@@ -19,6 +21,8 @@ function App() {
           <Route path='/promotions' element={<PromotionComponent />} />
           <Route path='/promotions/:promoId' element={<GroupComponent />} />
           <Route path='/promotions/:promoId/groups/:groupId' element={<AssignStudents />} />
+          <Route path='/grades' element={<GradeComponent />} />
+          <Route path='/deliberation' element={<DelibirationComponent />} />
         </Routes>
         
     </div>

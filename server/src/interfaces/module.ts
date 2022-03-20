@@ -3,7 +3,8 @@ export default interface Module {
     name: string;
     teacher: string;//= userID (isTeacher = true)
     type: string;
-    promotion: string;
+    promotion: Promotion;
+    major: string;
     semester: string;
     coef: number;
     controlCoef: number;
