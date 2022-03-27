@@ -1,7 +1,8 @@
 import Promotion from "./promotion";
+import Teacher from "./teacher";
 export default interface Module {
     name: string;
-    teacher: string;//= userID (isTeacher = true)
+    teacher: Teacher;//= userID (isTeacher = true)
     type: string;
     promotion: Promotion;
     major: string;

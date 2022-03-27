@@ -29,10 +29,12 @@ export default function ModulesComponent () {
       try {
         const  modulesData  = await axios.get('http://localhost:3000/modules')
         const promotionsData  = await axios.get('http://localhost:3000/promotions')
-
+        const teachersData  = await axios.get(`http://localhost:3000/users?role=Teacher`)
+        console.log(teachersData.data)
+        
         setModules(modulesData.data);
         setPromotions(promotionsData.data)
-        setTeachers(modulesData.data.map(item => item.teacher));
+        setTeachers(teachersData.data);
     
       } catch (err) {
         if(err instanceof Error){
@@ -98,7 +100,7 @@ export default function ModulesComponent () {
           
           <option value="" >None</option>
           {
-            teachers.map(teacher => <option value={teacher} >{teacher}</option>)
+            teachers.map(teacher => <option value={teacher._id} >{teacher.firstname} {teacher.lastname}</option>)
           }
         </Form.Select>
       </>
@@ -192,7 +194,7 @@ export default function ModulesComponent () {
                                  </>  :  <>
                                            <td>{item.controlCoef}</td>
                                            <td>{item.examCoef}</td>
-                                           <td>{item.teacher}</td>
+                                           <td>{item.teacher?.lastname} {item.teacher?.firstname}</td>
                                            <td>{item.promotion?.year} {item.promotion?.major}</td>
                                          </>}
                   

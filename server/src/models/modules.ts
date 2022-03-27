@@ -9,7 +9,9 @@ const moduleSchema: Schema = new Schema<Module>({
         unique: true
     },
     teacher: {
-        type: String,
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
     },
     type: {
         type: String,

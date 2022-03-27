@@ -7,7 +7,7 @@ import express, { NextFunction, Request, Response } from 'express';
 import StatusCodes from 'http-status-codes';
 import 'express-async-errors';
 
-import BaseRouter from './routes';
+//import BaseRouter from './routes';
 import logger from '@shared/Logger';
 import mongoose from 'mongoose';
 
@@ -15,6 +15,7 @@ import studentRouter from './routes/students'
 import moduleRouter from './routes/modules';
 import promotionRouter from './routes/promotions';
 import gradeRouter from './routes/grades';
+import usersRouter from './routes/Users'
 
 const app = express();
 const { BAD_REQUEST } = StatusCodes;
@@ -54,11 +55,13 @@ var allowCrossDomain = function(req: Request, res: Response, next: NextFunction)
 app.use(allowCrossDomain);
 
 // Add APIs
-app.use('/api', BaseRouter);
+//app.use('/api', BaseRouter);
 app.use('/students', studentRouter);
 app.use('/modules', moduleRouter);
 app.use('/promotions', promotionRouter)
 app.use('/grades', gradeRouter)
+app.use('/users', usersRouter)
+
 
 // Print API errors
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

@@ -10,11 +10,13 @@ moduleRouter.use(bodyParser.json());
 moduleRouter.route('/')
 .get(async(req: Request, res: Response, next: NextFunction) =>{
     try{
-        let modules: Module[] = await Modules.find({}).populate({
+        let modules: Module[] = await Modules.find({}).populate([{
+            path: 'teacher'
+        }, {
             path: 'promotion',
             
             populate: { path: 'groups.students' }
-          });
+          }])
         return res.status(200).setHeader('Content-Type', 'application/json').json(modules);
     }
     catch(err){

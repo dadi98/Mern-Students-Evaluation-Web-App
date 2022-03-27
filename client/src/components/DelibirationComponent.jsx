@@ -15,7 +15,7 @@ const AverageCalcultion = ({courses, studentId, grades, semester}) => {
                                     grade.course._id===course._id&&grade.student._id===studentId))
         //console.log(studentIdGrades);
         let coursesAverages = studentIdGrades.map(grade => courseAverage(grade))
-        console.log(coursesAverages);
+       // console.log(coursesAverages);
 
         return (
             <>
@@ -36,8 +36,9 @@ export default function DelibirationComponent() {
     const [studentsByPromo, setStudentsByPromo] = React.useState([]);
     const [courses, setCourses] = React.useState([]);
     const [coursesByPromo, setCoursesByPromo] = React.useState([]);
+    //const inpRef = React.useRef({});
     //console.log(coursesByPromo)
-    //console.log(coursesByPromo);
+    //console.log(inpRef);
     React.useEffect(() => {
         const getGrades = async() =>{
             try {
@@ -57,7 +58,13 @@ export default function DelibirationComponent() {
         getGrades();
     }, []);
 
-    
+    /*const decision = (studentId) => {
+        console.log(inpRef.current);
+        let x = JSON.parse(JSON.stringify())
+        if(document.getElementById(studentId)!==null) {console.log(document.getElementById("demo"));}
+        
+        
+    }*/
     
     return (
     <>
@@ -101,6 +108,7 @@ export default function DelibirationComponent() {
                 )}
                 <th>avg sem. 2</th>
                 <th>avg {studentsByPromo[0].level}</th>
+                <th>decision</th>
                 </tr>
             </thead>
             <tbody>
@@ -109,17 +117,22 @@ export default function DelibirationComponent() {
                    <td>{student.studentId}</td>
                    <td>{student.firstName}</td>
                    <td>{student.lastName}</td> 
-                   <td>{/*coursesByPromo[0]?.promotion?.groups?.filter(group => group.students.some(item =>
-                                         item._id==student._id))[0].groupNumber*/1}</td> 
+                   <td>{coursesByPromo[0]?.promotion?.groups?.filter(group => group.students.some(item =>
+                                                        item._id===student._id))[0].groupNumber/**/}</td> 
                    <AverageCalcultion courses={coursesByPromo} studentId={student._id} grades={gradesByPromo} semester={'1'} />
                    <td>{semesterAverage(gradesByPromo.filter(grade => grade.student._id===student._id&&
                                                                       grade.course.semester==='1'))[0].toFixed(2)}</td> 
                    <AverageCalcultion courses={coursesByPromo} studentId={student._id} grades={gradesByPromo} semester={'2'} /> 
                    <td>{semesterAverage(gradesByPromo.filter(grade => grade.student._id===student._id&&
                                                                       grade.course.semester==='2'))[0].toFixed(2)}</td>
-                   <td>{semesterAverage(gradesByPromo.filter(grade => grade.student._id===student._id))[0].toFixed(2)
+                   <td>
+                       {semesterAverage(gradesByPromo.filter(grade => grade.student._id===student._id))[0].toFixed(2)
                        //it can be used to calculate annual avg by providing all year courses grades as args
                     }</td>
+                    
+                    <td>{semesterAverage(gradesByPromo.filter(grade => grade.student._id===student._id))[0] >= 10 ?
+                            'Admis' : 'Ajourné'
+                    }</td> 
                 </tr>
                 )}
             </tbody>

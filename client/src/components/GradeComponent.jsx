@@ -6,24 +6,15 @@ export default function GradeComponent () {
   
   const [courses, setCourses] = React.useState([]);
   const [course, setCourse] = React.useState();
-  
-  //const [filtered, setFiltered] = React.useState([]);//Courses based on selected promotion
   const [group, setGroup] = React.useState();
   const [type, setType] = React.useState();// type of evaluation
   const [grades, setGrades] = React.useState([]);
   const [error, setError] = React.useState();
-  //console.log(grades)
-  const inputRef = React.useRef([]);
   console.log(type)
-  //let [updateToggle, setUpdateToggle] = React.useState(1);
+  const inputRef = React.useRef([]);
   //console.log(globalThis);
-
   //const [q, setQ] = React.useState({promotion: '', semester: ''});
-
-  //const [qTeacher, setQTeacher] = React.useState('');
-  //console.log(updateToggle);
   //const [searchParam] = React.useState<Array<string>>(["promotion", "semester"]);
-  
   React.useEffect(() => {
     const getCourses = async() => {
       try {
@@ -68,6 +59,7 @@ export default function GradeComponent () {
       ))
   }
   const updateAbsent = (courseId, studentId) => {
+    
     setGrades(grades.map(grade =>
             (grade.course === courseId && grade.student === studentId ? {...grade, absent: inputRef.current[studentId].checked} 
                                                                     : grade)
@@ -157,7 +149,9 @@ export default function GradeComponent () {
                                                    }}
                             aria-label="semester select">
                   <option >choose..</option>
-                  {courses?.map(course => 
+                  {courses?.filter(course => JSON.parse(localStorage.getItem('user')).role==='Admin' ? true : 
+                                     course.teacher?._id===JSON.parse(localStorage.getItem('user'))._id)
+                           .map(course => 
                     <option key={course._id} value={course._id} >{course.name}</option>
                     )
                   }
