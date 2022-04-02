@@ -5,6 +5,7 @@ import { Row, Col, Button, Form, Table, DropdownButton, Dropdown } from 'react-b
 export default function GradeComponent () {
   
   const [courses, setCourses] = React.useState([]);
+  //console.log(courses);
   const [course, setCourse] = React.useState();
   const [group, setGroup] = React.useState();
   const [type, setType] = React.useState();// type of evaluation
@@ -18,7 +19,8 @@ export default function GradeComponent () {
   React.useEffect(() => {
     const getCourses = async() => {
       try {
-        const { data } = await axios.get('http://localhost:3000/modules')
+        const { data } = await axios.get('http://localhost:3000/courses')
+        
         setCourses(data);
         //console.log(data)
         //setGrades(courses.map(course => ({student: course.promotion.groups.,course: course._id})))

@@ -1,8 +1,8 @@
 import { Schema, model } from 'mongoose';
 
-import Module from '../interfaces/module';
+import Course from '../interfaces/course';
 
-const moduleSchema: Schema = new Schema<Module>({
+const courseSchema: Schema = new Schema<Course>({
     name: {
         type: String,
         required: true,
@@ -48,4 +48,4 @@ const moduleSchema: Schema = new Schema<Module>({
     timestamps: true
 });
 
-export default model<Module>('module', moduleSchema);
+export default model<Course>('course', courseSchema);

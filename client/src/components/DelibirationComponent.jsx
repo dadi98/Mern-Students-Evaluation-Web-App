@@ -44,7 +44,7 @@ export default function DelibirationComponent() {
             try {
                 const gradesData = await axios.get(`http://localhost:3000/grades`);
                 const studentsData = await axios.get(`http://localhost:3000/students`);
-                const coursesData = await axios.get(`http://localhost:3000/modules`);
+                const coursesData = await axios.get(`http://localhost:3000/courses`);
                 //console.log(data);
                 setGrades(gradesData.data);
                 setStudents(studentsData.data);

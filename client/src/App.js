@@ -4,7 +4,7 @@ import { Routes, Route,  useNavigate, Navigate } from 'react-router-dom';
 import './App.css';
 import LoginPage from './components/LoginPage';
 import StudentComponent from './components/StudentComponent';
-import ModulesComponent from './components/ModulesComponent';
+import CoursesComponent from './components/CoursesComponent';
 import PromotionComponent from './components/PromotionComponent';
 import GroupComponent from './components/GroupComponent';
 import AssignStudents from './components/AssignStudents';
@@ -59,7 +59,7 @@ function App() {
           <Route path='/signup' element={<PrivateRoute> <SignupPage /> </PrivateRoute>} />
           <Route path='/login' element={userInfo ?  <Navigate to="/" /> : <LoginPage setUserInfo={setUserInfo} />} />
           <Route path='/students' element={<PrivateRoute> <StudentComponent /> </PrivateRoute>} />
-          <Route path='/modules' element={<PrivateRoute> <ModulesComponent /> </PrivateRoute>} />
+          <Route path='/courses' element={<PrivateRoute> <CoursesComponent /> </PrivateRoute>} />
           <Route path='/promotions' element={<PrivateRoute> <PromotionComponent /> </PrivateRoute>} />
           <Route path='/promotions/:promoId' element={<PrivateRoute> <GroupComponent /> </PrivateRoute>} />
           <Route path='/promotions/:promoId/groups/:groupId' element={<PrivateRoute> <AssignStudents /> </PrivateRoute>} />

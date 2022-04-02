@@ -27,7 +27,7 @@ const gradeSchema: Schema = new Schema<Grade>({
     },
     course: {
         type: Schema.Types.ObjectId,
-        ref: 'module',
+        ref: 'course',
         required: true
     },
     evaluations: [evaluationSchema]

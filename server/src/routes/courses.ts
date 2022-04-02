@@ -1,23 +1,23 @@
 import express, {Request, Response, NextFunction} from 'express';
 import bodyParser from 'body-parser';
-import Modules from '../models/modules';
-import Module from '../interfaces/module'
+import Courses from '../models/courses';
+import Course from '../interfaces/course'
 
-const moduleRouter = express.Router();
+const courseRouter = express.Router();
 
-moduleRouter.use(bodyParser.json());
+courseRouter.use(bodyParser.json());
 
-moduleRouter.route('/')
+courseRouter.route('/')
 .get(async(req: Request, res: Response, next: NextFunction) =>{
     try{
-        let modules: Module[] = await Modules.find({}).populate([{
+        let courses: Course[] = await Courses.find({}).populate([{
             path: 'teacher'
         }, {
             path: 'promotion',
             
             populate: { path: 'groups.students' }
           }])
-        return res.status(200).setHeader('Content-Type', 'application/json').json(modules);
+        return res.status(200).setHeader('Content-Type', 'application/json').json(courses);
     }
     catch(err){
         if(err instanceof Error) {
@@ -27,8 +27,8 @@ moduleRouter.route('/')
 })
 .post(async(req: Request, res: Response, next: NextFunction) => {
     try{
-        let module: Module = await Modules.create(req.body);
-        return res.status(200).setHeader('Content-Type', 'application/json').json(module);
+        let course: Course = await Courses.create(req.body);
+        return res.status(200).setHeader('Content-Type', 'application/json').json(course);
     }
     catch(err){
         if(err instanceof Error) {
@@ -38,8 +38,8 @@ moduleRouter.route('/')
 })
 .delete(async(req: Request, res: Response, next: NextFunction) => {
     try{
-        let modules: Module[] = await Modules.remove({});
-        return res.status(200).setHeader('Content-Type', 'application/json').json(modules);
+        let courses: Course[] = await Courses.remove({});
+        return res.status(200).setHeader('Content-Type', 'application/json').json(courses);
     }
     catch(err){
         if(err instanceof Error) {
@@ -48,14 +48,14 @@ moduleRouter.route('/')
     }
 });
 
-moduleRouter.route('/:moduleId')
+courseRouter.route('/:CourseId')
 .get(async(req: Request, res: Response, next: NextFunction) => {
-    const { moduleId } = req.params;
+    const { CourseId } = req.params;
     try{
-        let course: Module | null = await Modules.findById(moduleId);
+        let course: Course | null = await Courses.findById(CourseId);
 
         return course ? res.status(200).setHeader('Content-Type', 'application/json').json(course) : 
-                         res.status(404).setHeader('Content-Type', 'plain/text').send(`Student with id: ${moduleId} does not exist`);
+                         res.status(404).setHeader('Content-Type', 'plain/text').send(`Student with id: ${CourseId} does not exist`);
     }
     catch(err){
         if(err instanceof Error) {
@@ -64,12 +64,12 @@ moduleRouter.route('/:moduleId')
     }  
 })
 .put(async(req: Request, res: Response, next: NextFunction) => {
-    const { moduleId } = req.params;
+    const { CourseId } = req.params;
     try{
-        let module: Module | null = await Modules.findByIdAndUpdate(moduleId, {
+        let course: Course | null = await Courses.findByIdAndUpdate(CourseId, {
             $set: req.body
         }, { new: true });
-        return res.status(200).setHeader('Content-Type', 'application/json').json(module);
+        return res.status(200).setHeader('Content-Type', 'application/json').json(course);
     }
     catch(err){
         if(err instanceof Error) {
@@ -78,9 +78,9 @@ moduleRouter.route('/:moduleId')
     }
 })
 .delete(async(req: Request, res: Response, next: NextFunction) => {
-    const { moduleId } = req.params;
+    const { CourseId } = req.params;
     try{
-        await Modules.findByIdAndRemove(moduleId);
+        await Courses.findByIdAndRemove(CourseId);
         return res.status(200).json({ message: 'student deleted successfully.' });
     }
     catch(err){
@@ -90,4 +90,4 @@ moduleRouter.route('/:moduleId')
     }
 });
 
-export default moduleRouter;
+export default courseRouter;

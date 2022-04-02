@@ -12,7 +12,7 @@ import logger from '@shared/Logger';
 import mongoose from 'mongoose';
 
 import studentRouter from './routes/students'
-import moduleRouter from './routes/modules';
+import courseRouter from './routes/courses';
 import promotionRouter from './routes/promotions';
 import gradeRouter from './routes/grades';
 import usersRouter from './routes/Users'
@@ -57,7 +57,7 @@ app.use(allowCrossDomain);
 // Add APIs
 //app.use('/api', BaseRouter);
 app.use('/students', studentRouter);
-app.use('/modules', moduleRouter);
+app.use('/courses', courseRouter);
 app.use('/promotions', promotionRouter)
 app.use('/grades', gradeRouter)
 app.use('/users', usersRouter)

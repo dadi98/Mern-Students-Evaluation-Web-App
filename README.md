@@ -1,9 +1,16 @@
-# Final-Year-Project
+# description
+    A mern stack university students evaluation web app, made especially for the institute of electrical and electronics engineering, located in Boumerdes, Algeria.
 
-Add the steps here how to run your code.
+# Getting started
 
-Steps for running the frontend;
+    - Fork this repo and run the git clone <forked repo> command from your terminal/bash.
+    - move to /server directory run: npm install.
+    - move to /client directory run: npm install.
+    - install MongoDB and create a folder for data, run MongoDB in background at the terminal using:
+      mongod --dbpath="d:/db/data" --bind_ip 127.0.0.1
+      ( to get instructions of installing mongodb, visit the official website).
+    - to run development front-end: npm start.
+    - to run development back-end: npm run start:dev.
+    
 
-Steps for the running the backend;
-
-Notes: how to install mongodb and how to start it.
+    

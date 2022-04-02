@@ -1,14 +1,14 @@
 
-/* useEffect too many request, consider updating modules instead of filtered so changes will always
+/* useEffect too many request, consider updating courses instead of filtered so changes will always
 reflect when component is mounted
 - try find a way to make all updates in a single onChange fct*/ 
 import axios from 'axios';
 import * as React from 'react';
 import { Row, Col, Button, Form, Table, DropdownButton, Dropdown } from 'react-bootstrap';
 
-export default function ModulesComponent () {
+export default function CoursesComponent () {
 
-  const [modules, setModules] = React.useState([]);
+  const [courses, setCourses] = React.useState([]);
   const [filtered, setFiltered] = React.useState([]);
   const [teachers, setTeachers] = React.useState([]);
   const [promotions, setPromotions] = React.useState([]);
@@ -25,14 +25,14 @@ export default function ModulesComponent () {
   //const [searchParam] = React.useState<Array<string>>(["promotion", "semester"]);
   
   React.useEffect(() => {
-    const getModules = async() => {
+    const getCourses = async() => {
       try {
-        const  modulesData  = await axios.get('http://localhost:3000/modules')
+        const  coursesData  = await axios.get('http://localhost:3000/courses')
         const promotionsData  = await axios.get('http://localhost:3000/promotions')
-        const teachersData  = await axios.get(`http://localhost:3000/users?role=Teacher`)
+        const teachersData  = await axios.get('http://localhost:3000/users?role=Teacher')
         console.log(teachersData.data)
         
-        setModules(modulesData.data);
+        setCourses(coursesData.data);
         setPromotions(promotionsData.data)
         setTeachers(teachersData.data);
     
@@ -45,14 +45,14 @@ export default function ModulesComponent () {
       }
 
     }
-    getModules();
+    getCourses();
   }, [error]);
 
   const Search = (items) => {
     //console.log(1)
     return items.filter(item =>  item.major === q.major && item.semester === q.semester )
   }
-  console.log(Search(modules));
+  //console.log(Search(courses));
   const updateControlCoef = (e , item) => {
     setFiltered(filtered.map(course =>
             (course.name === item.name ? {...course, controlCoef: e.target.value} : course)
@@ -76,7 +76,7 @@ export default function ModulesComponent () {
 
   const postUpdates = () => {
     try {
-      filtered.forEach(async(course) =>{ await axios.put(`http://localhost:3000/modules/${course._id}`, course); } )
+      filtered.forEach(async(course) =>{ await axios.put(`http://localhost:3000/courses/${course._id}`, course); } )
       setUpdateToggle(false);  
       
     } catch (err) {
@@ -156,7 +156,7 @@ export default function ModulesComponent () {
             </Form.Group>
           </Col>
           <Col xs={12} md={3}>
-            <Button onClick={() => {setUpdateToggle(false); setFiltered(Search(modules));}}>
+            <Button onClick={() => {setUpdateToggle(false); setFiltered(Search(courses));}}>
               Apply
             </Button>
           </Col>
@@ -169,7 +169,7 @@ export default function ModulesComponent () {
         <Table className="all" striped bordered hover responsive>
           <thead>
             <tr>
-              <th>Module</th>
+              <th>Course</th>
               <th>Type</th>
               <th>Control Coefficient</th>
               <th>Exam Coefficient</th>

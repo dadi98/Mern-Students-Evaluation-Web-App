@@ -1,6 +1,6 @@
 import Promotion from "./promotion";
 import Teacher from "./teacher";
-export default interface Module {
+export default interface Course {
     name: string;
     teacher: Teacher;//= userID (isTeacher = true)
     type: string;
