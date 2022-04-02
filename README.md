@@ -1,5 +1,6 @@
 # description
-    A mern stack university students evaluation web app, made especially for the institute of electrical and electronics engineering, located in Boumerdes, Algeria.
+    A mern stack university students evaluation web app, made especially for the institute of electrical 
+    and electronics engineering, located in Boumerdes, Algeria.
 
 # Getting started
 
