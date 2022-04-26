@@ -21,7 +21,7 @@ const AverageCalcultion = ({courses, studentId, grades, semester}) => {
             <>
                 {coursesAverages.map(avg => 
                     //add unique key
-                    <td>{avg===null ? (0).toFixed(2) : avg.toFixed(2)}</td>
+                    <td id='delib-courses'>{avg===null ? (0).toFixed(2) : avg.toFixed(2)}</td>
                 )}
             </>
         );
@@ -64,10 +64,21 @@ export default function DelibirationComponent() {
         if(document.getElementById(studentId)!==null) {console.log(document.getElementById("demo"));}
         
         
+    }
+
+    const scroll = () => {
+        let table = document.getElementById('table');
+        console.log(table.children);
+        table.addEventListener('scroll', (e) => {
+            //table.children[0].width(table.width() + table.scrollLeft());
+            table.children[0].style.Width = table.offsetWidth + table.scrollLeft;
+            table.children[1].style.Width = (table.offsetWidth + table.scrollLeft) + 'px';
+        });
     }*/
     
     return (
     <>
+    <div className=''>
         <Row>
           <Col xs={12} md={3}>
             <Form.Group className="mb-3" >
@@ -91,23 +102,22 @@ export default function DelibirationComponent() {
         </Row>
         {studentsByPromo.length!==0 &&
         <Row>
-            <Table className="all"  bordered hover responsive>
+            <table id='table' className="table table-bordered table-hover deliberation-table" >
             <thead>
-                
                 <tr>
                 <th>ID</th>
                 <th>First Name</th>
                 <th>Last Name</th>
-                <th>G</th>
+                <th id='delib-courses'>G</th>
                 {coursesByPromo.filter(course => course.semester==='1').map(course =>
-                    <th key={course._id}>{course.name}</th>
+                    <th key={course._id} id='delib-courses'>{course.code}</th>
                 )}
-                <th>avg sem. 1</th>
+                <th id='delib-courses'>avg S1</th>
                 {coursesByPromo.filter(course => course.semester==='2').map(course =>
-                    <th key={course._id}>{course.name}</th>
+                    <th key={course._id} id='delib-courses'>{course.code}</th>
                 )}
-                <th>avg sem. 2</th>
-                <th>avg {studentsByPromo[0].level}</th>
+                <th id='delib-courses'>avg S2</th>
+                <th id='delib-courses'>avg {studentsByPromo[0].level}</th>
                 <th>decision</th>
                 </tr>
             </thead>
@@ -117,15 +127,15 @@ export default function DelibirationComponent() {
                    <td>{student.studentId}</td>
                    <td>{student.firstName}</td>
                    <td>{student.lastName}</td> 
-                   <td>{coursesByPromo[0]?.promotion?.groups?.filter(group => group.students.some(item =>
+                   <td id='delib-courses'>{coursesByPromo[0]?.promotion?.groups?.filter(group => group.students.some(item =>
                                                         item._id===student._id))[0].groupNumber/**/}</td> 
                    <AverageCalcultion courses={coursesByPromo} studentId={student._id} grades={gradesByPromo} semester={'1'} />
-                   <td>{semesterAverage(gradesByPromo.filter(grade => grade.student._id===student._id&&
+                   <td id='delib-courses'>{semesterAverage(gradesByPromo.filter(grade => grade.student._id===student._id&&
                                                                       grade.course.semester==='1'))[0].toFixed(2)}</td> 
                    <AverageCalcultion courses={coursesByPromo} studentId={student._id} grades={gradesByPromo} semester={'2'} /> 
-                   <td>{semesterAverage(gradesByPromo.filter(grade => grade.student._id===student._id&&
+                   <td id='delib-courses'>{semesterAverage(gradesByPromo.filter(grade => grade.student._id===student._id&&
                                                                       grade.course.semester==='2'))[0].toFixed(2)}</td>
-                   <td>
+                   <td id='delib-courses'>
                        {semesterAverage(gradesByPromo.filter(grade => grade.student._id===student._id))[0].toFixed(2)
                        //it can be used to calculate annual avg by providing all year courses grades as args
                     }</td>
@@ -136,8 +146,9 @@ export default function DelibirationComponent() {
                 </tr>
                 )}
             </tbody>
-            </Table>
+            </table>
         </Row>}
+        </div>
     </>
     );
 }

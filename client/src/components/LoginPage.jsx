@@ -1,6 +1,6 @@
 import * as React from 'react';
 import axios from "axios";
-import {Container, Row, Col, Button, Form } from 'react-bootstrap';
+import {Container, Row, Col, Button, Form, Card, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
 export default function LoginPage({setUserInfo}) {
@@ -26,7 +26,7 @@ export default function LoginPage({setUserInfo}) {
         } catch (err) {
             console.log(err.response.status);
             if (err.response.status='401') {
-                setError('wrong username or password');
+                setError('Wrong Username or Password!');
             }
         }
 
@@ -34,34 +34,39 @@ export default function LoginPage({setUserInfo}) {
     
     return (
     <>
-        <Form onSubmit={handleLogin}>
-            {error && (<h4>{error}</h4>)}
-            <Container>
-                <Row>
-                    <Col xs={12} md={6}>
-                        <Form.Group className="mb-3" >
-                            <Form.Label>Username : </Form.Label>
+        <div className="login" >
+            <Card  className="login-card">
+                <Form onSubmit={handleLogin}>
+                <Card.Header as="h5" className="text-center" style={{backgroundColor: "#ededed", color: "#232d5e"}}>Login To Continue</Card.Header>
+                <Card.Body>
+                   
+                             
+                         <Form.Group className="mb-3" >
+                            <Form.Label className='cred-label'>Username : </Form.Label>
                             <Form.Control type="text" placeholder="enter username..." value={username}
-                                        onChange={(e) => setUsername(e.target.value)}/>
+                                        onChange={(e) => setUsername(e.target.value)}
+                                        onClick={(e) => setError('')}/>
                         </Form.Group>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col xs={12} md={6}>
-                    <Form.Group className="mb-3" >
-                        <Form.Label>Password : </Form.Label>
-                        <Form.Control type="password" placeholder="enter password..." value={password} 
-                                    onChange={e => setPassword(e.target.value)}/>
-                    </Form.Group>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col xs={12} md={6}>
-                        <Button type="submit" > Login </Button>
-                    </Col>
-                </Row>            
-            </Container>
-        </Form>
+                        <Form.Group className="mb-3" >
+                            <Form.Label>Password : </Form.Label>
+                            <Form.Control type="password" placeholder="enter password..." value={password} 
+                                        onChange={e => setPassword(e.target.value)}
+                                        onClick={(e) => setError('')}/>
+                        </Form.Group>
+                        {error &&
+                        <Alert variant="danger">
+                            <Alert.Heading as="h5" className='d-flex justify-content-center'>{error}</Alert.Heading>
+                        </Alert>
+                        }
+                </Card.Body>
+                <Card.Footer style={{backgroundColor: "#ededed"}}><Button style={{backgroundColor: "#232d5e", color: "#fafafa"}}
+                             type="submit" className='login-button' >
+                                     LOG IN </Button>
+                </Card.Footer>
+                </Form>
+            </Card>
+        </div>    
+       
     </>
     );
 }

@@ -1,16 +1,24 @@
 import * as React from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'
+import AddPromotion from './AddPromotion';
+import EditPromotion from './EditPromotion';
+import DeletePromotion from './DeletePromotion';
 //imrse, ffc, sfc
 import { Row, Col, Button, Form, Table, DropdownButton, Dropdown } from 'react-bootstrap';
 
+
 export default function PromotionComponent () {
 
-  const [promotion, setPromotion] = React.useState({year: '', degree: '', major: '', numberOfGroups: ''});
   const [promotions, setPromotions] = React.useState([]);
+
+  const [addModal, setAddModal] = React.useState(false);
+  const [deleteModal, setDeleteModal] = React.useState(false);
+  const [editModal, setEditModal] = React.useState(false);
   
   const [refresh, setRefresh] = React.useState(false);
   const [error, setError] = React.useState('');
+  const [id, setId] = React.useState();
 
   const [q, setQ] = React.useState('');
   const [searchParam] = React.useState(["year", "major"]);
@@ -31,7 +39,7 @@ export default function PromotionComponent () {
     }
     
     getPromotions();
-  }, [error, refresh]);
+  }, [addModal, deleteModal, editModal, error, refresh]);
 
   const Search = (items) => {
     return items.filter(item => 
@@ -39,90 +47,35 @@ export default function PromotionComponent () {
                                          item[param].toString().toLowerCase().indexOf(q.toLowerCase()) > -1))
   }
   
-  const addPromotion = async(e) => {
-    e.preventDefault();
-    try {
-        await axios.post('http://localhost:3000/promotions', promotion)
-    } catch (err) {
-        if(err instanceof Error){
-            console.log(err.message);
-            //console.log(err.message);
-        }
-    }
-    setRefresh(!refresh);
-  }
+  
 
   let navigate = useNavigate()
 
   return (
-    <>
-        <div>
-            <Form onSubmit={addPromotion}>
-                <Row>
-                    <Col xs={12} md={2}>
-                        <Form.Group className="mb-3" >
-                            <Form.Label> Year :</Form.Label>
-                            <Form.Control type="text" placeholder="Academic year yy/yy" 
-                                                    onChange={(e) => setPromotion(state => ({...state, year: e.target.value}))}/>
-                        </Form.Group>
-                    </Col>
-                    <Col xs={12} md={2}>
-                        <Form.Group className="mb-3" >
-                            <Form.Label> Degree :</Form.Label>
-                            <Form.Select  onChange={(e) => setPromotion(state => ({...state, degree: e.target.value}))} aria-label="promotion select">
-                                <option >choose..</option> 
-                                <option value="License" >License</option>
-                                <option value="Master" >Master</option>       
-                            </Form.Select>
-                        </Form.Group>
-                    </Col>
-                    <Col xs={12} md={2}>
-                        <Form.Group className="mb-3" >
-                            <Form.Label> Major :</Form.Label>
-                            <Form.Select  onChange={(e) => setPromotion(state => ({...state, major: e.target.value}))} aria-label="semester select">
-                                <option >choose..</option>
-                                <option value="L1" >L1</option>
-                                <option value="L2" >L2</option>
-                                <option value="L3" >L3</option>
-                                <option value="M1" >M1</option>
-                                <option value="M2" >M2</option>
-                            </Form.Select>
-                        </Form.Group>
-                    </Col>
-                    <Col xs={12} md={2}>
-                        <Form.Group className="mb-3" >
-                            <Form.Label> Number of groups :</Form.Label>
-                            <Form.Control type="text" 
-                                                    onChange={(e) => setPromotion(state => ({...state, numberOfGroups: e.target.value}))}/>
-                        </Form.Group>
-                    </Col>
-                    <Col xs={12} md={2}>
-                        <Button  type="submit">
-                            Add Promotion
-                        </Button>
-                    </Col>
-                </Row>
-            </Form>
-        </div>
-        <div>
-            <h3> Promotions </h3>
-            <Form.Group className="mb-3" controlId="search-field">
-                <Row>
-                    <Col lg={1}>
-                        <Form.Label> Find a promotion:</Form.Label>
-                    </Col>
-                    <Col lg={3}>
-                        <Form.Control type="search" placeholder="search for a promotion" value={q}
+    <>  
+      <div className='route'>
+        <div >
+          <Row>
+            
+            <Col md={2}  >
+                <Button variant="primary" onClick={() => setAddModal(true)} >Add promotion</Button>
+            </Col>
+            <Col md={4}>
+                <Button variant="secondary" onClick={() => setRefresh(!refresh)} >Refresh</Button>
+            </Col>
+            <Col md={3}>
+                <Form.Control type="search" placeholder="search for a promotion" value={q}
                                             onChange={(e) => setQ(e.target.value)}/>
-                    </Col>
-                </Row>
-            </Form.Group>
+            </Col>
+          </Row>
+        </div>
+        <div className='tables'>
             {promotions.length !== 0 && Search(promotions).length !== 0 ?
-            (<Table className="all" striped bordered hover responsive>
+            (<table className="table table-bordered table-hover promotion-table" >
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Year</th>
+                        <th style={{width: "500px"}}>Actions</th>
+                        <th>Academic year</th>
                         <th>Degree</th>
                         <th>Major</th>
                         <th>N°: Groups</th>
@@ -131,7 +84,13 @@ export default function PromotionComponent () {
                 <tbody>
                     {Search(promotions).map(item => (
                     <tr key={item._id} >
-                        <td onClick={() => navigate(`/promotions/${item._id}`)}>{item._id}</td>
+                        <td>
+                            <DropdownButton size="sm" id="dropdown-basic-button" title="">
+                                <Dropdown.Item  onClick={() => {setId(item._id); setEditModal(true);}} >  Edit</Dropdown.Item>
+                                <Dropdown.Item  onClick={() => {setId(item._id); setDeleteModal(true);}} >  Delete</Dropdown.Item>
+                                <Dropdown.Item  onClick={() => navigate(`/promotions/${item._id}`)} >  Groups</Dropdown.Item>
+                            </DropdownButton>
+                        </td>
                         <td>{item.year}</td>
                         <td>{item.degree}</td>
                         <td>{item.major}</td>
@@ -139,10 +98,16 @@ export default function PromotionComponent () {
                     </tr>
                     ))}
                 </tbody>
-            </Table>) : (<h5>no promotions to show</h5>)}
+            </table>) : (<h5>no promotions to show</h5>)}
             
         </div>
-      
+        <div>
+            {addModal && <AddPromotion show={addModal} onHide={() => setAddModal(false)}/>}
+            {deleteModal && <DeletePromotion show={deleteModal} onHide={() => setDeleteModal(false)} id={id}/>}
+            {/*deleteAllModal && <DeleteAll show={deleteAllModal} onHide={() => setDeleteAllModal(false)}/>*/}
+            {editModal && <EditPromotion show={editModal} onHide={() => setEditModal(false)} data={promotions} id={id}/>}
+        </div>
+      </div>
     </>
   );
 }

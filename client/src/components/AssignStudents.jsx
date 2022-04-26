@@ -6,7 +6,7 @@ import { Row, Col, Button, Form, ListGroup, Table, DropdownButton, Dropdown } fr
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashCan } from '@fortawesome/free-regular-svg-icons'
 
-export default function AssignStudents () {
+export default function AssignStudents ({promoId, groupId}) {
   
   const [promotion, setPromotion] = React.useState({});
   const [group, setGroup] = React.useState({/*groupNumber: '', students: []*/});
@@ -17,7 +17,7 @@ export default function AssignStudents () {
   const inputRef = React.useRef([]);
   /*const [q, setQ] = React.useState('');
   const [searchParam] = React.useState(["name"]);*/
-  const { promoId, groupId } = useParams();
+  //const { promoId, groupId } = useParams();
   //let navigate = useNavigate();
 
   React.useEffect(() => {
@@ -99,49 +99,55 @@ export default function AssignStudents () {
   return (
     <>
         
-        <div>
-            <h2> Add student to group {group.groupNumber} : </h2>
-            <Form onSubmit={addStudents}>
-                <Row>
+        {group && 
+        (<>
+          <Row>
+            <Col md={6}>
+              <div className='d-flex justify-content-center groups'>
+                <h2> Add student to group {group.groupNumber}: </h2>
+                <Form onSubmit={addStudents}>
+                  <Row>
                     {students && students.map(student => (
-                        
-                        <div key={student._id} className="mb-3">
-                            <Form.Check 
-                                ref={ el => inputRef.current[student._id] = el}
-                                type="checkbox"
-                                id={student._id}
-                                label={`${student.lastName} ${student.firstName}`}
-                                disabled={promotion.groups?.filter(group => 
-                                            group.students?.some(item => item._id === student._id)).length !== 0 ? true : false}
-                            />
-                        </div>
-                        
+
+                      <div key={student._id} className="mb-3">
+                        <Form.Check
+                          ref={el => inputRef.current[student._id] = el}
+                          type="checkbox"
+                          id={student._id}
+                          label={`${student.lastName} ${student.firstName}`}
+                          disabled={promotion.groups?.filter(group => group.students?.some(item => item._id === student._id)).length !== 0 ? true : false} />
+                      </div>
+
                     ))}
+
+                  </Row>
+                  <Col xs={12} md={2}>
+                    <Button type="submit">
+                      Update
+                    </Button>
                     
-                </Row>
-                    <Col xs={12} md={2}>
-                        <Button  type="submit">
-                            Update
-                        </Button>
-                    </Col>
-            </Form>
-        </div>
-        <div>
-            <h2> Group {group.groupNumber} students : </h2>
-            <ListGroup as="ol" numbered>
-              {
-                group.students && group.students.map(student =>(
-                  
+                  </Col>
+                </Form>
+              </div>
+            </Col>
+            <Col md={6}>
+              <div className='d-flex justify-content-center groups'>
+                <h2> Group {group.groupNumber} students: </h2>
+                <ListGroup as="ol" numbered>
+                  {group.students && group.students.map(student => (
+
                     <ListGroup.Item as="li" key={student._id}>
-                        {student.lastName} {student.firstName} {`        `}
-                        <FontAwesomeIcon onClick={() => removeStudent(student._id) } icon={faTrashCan} />
-                    </ListGroup.Item>  
+                      {student.lastName} {student.firstName} {`        `}
+                      <FontAwesomeIcon onClick={() => removeStudent(student._id)} icon={faTrashCan} />
+                    </ListGroup.Item>
                   )
-                  )
-              }
-            </ListGroup>
-        </div>
-      
+                  )}
+                </ListGroup>
+              </div>
+            </Col>
+          </Row>
+        </>)
+      } 
     </>
   );
 }

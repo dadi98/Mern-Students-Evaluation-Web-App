@@ -130,6 +130,7 @@ export default function CoursesComponent () {
 
   return (
     <>
+    <div className=''>
       <div>
         <Row>
           <Col xs={12} md={3}>
@@ -156,23 +157,24 @@ export default function CoursesComponent () {
             </Form.Group>
           </Col>
           <Col xs={12} md={3}>
-            <Button onClick={() => {setUpdateToggle(false); setFiltered(Search(courses));}}>
+            <Button className='mt-4 course-apply' onClick={() => {setUpdateToggle(false); setFiltered(Search(courses));}}>
               Apply
             </Button>
           </Col>
 
         </Row>
       </div>
-      <div>
+      <div className='tables'>
        { filtered.length !== 0 && 
        <>
-        <Table className="all" striped bordered hover responsive>
+        <table className="table table-bordered table-hover course-table" >
           <thead>
             <tr>
-              <th>Course</th>
+              <th>Code</th>
+              <th>Course name</th>
               <th>Type</th>
-              <th>Control Coefficient</th>
-              <th>Exam Coefficient</th>
+              <th>Control Coeff</th>
+              <th>Exam Coeff</th>
               <th>Teacher</th>
               <th>Promotion</th>
 
@@ -180,7 +182,8 @@ export default function CoursesComponent () {
           </thead>
           <tbody>
             {filtered.map(item => (
-              <tr key={item.name}>
+              <tr key={item.code}>
+                <td>{item.code}</td>
                 <td>{item.name}</td>
                 <td>{item.type}</td>
                 {updateToggle ?  <>
@@ -201,11 +204,15 @@ export default function CoursesComponent () {
               </tr>
             ))}
           </tbody>
-        </Table>
-        <Button onClick={() => setUpdateToggle(true)}>enable edit</Button>
-        <Button onClick={postUpdates}>update</Button>
+        </table>
+        
         </>
           }
+      </div>
+      <div className=''>
+          <Button className='course-edit-button' variant='secondary' onClick={() => setUpdateToggle(true)}>Edit</Button>
+          <Button className='course-submit-button'  onClick={postUpdates}>Submit</Button>
+        </div>
       </div>
     </>
   );

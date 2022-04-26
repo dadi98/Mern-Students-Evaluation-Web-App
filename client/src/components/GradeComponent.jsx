@@ -139,106 +139,108 @@ export default function GradeComponent () {
 
   return (
     <>
-      <div>
-        <Row>
-          
-          <Col xs={12} md={3}>
-            <Form.Group className="mb-3" >
-              <Form.Label>Course</Form.Label>
-              <Form.Select  onChange={(e) => {/**/setGroup(undefined);
-                                                  setCourse(courses.filter(course => course._id===e.target.value)[0])
-                                                  setType('');
-                                                   }}
-                            aria-label="semester select">
-                  <option >choose..</option>
-                  {courses?.filter(course => JSON.parse(localStorage.getItem('user')).role==='Admin' ? true : 
-                                     course.teacher?._id===JSON.parse(localStorage.getItem('user'))._id)
-                           .map(course => 
-                    <option key={course._id} value={course._id} >{course.name}</option>
-                    )
-                  }
-              </Form.Select>
-            </Form.Group>
-          </Col>
-          {/*<Col xs={12} md={3}>
-            <Button onClick={() => {setUpdateToggle(false); setFiltered(Search(Courses));}}>
-              Apply
-            </Button>
-                </Col>*/}
-
-        </Row>
-      </div>
-      <div>
-       { course && 
-       <>
-       <Row>
-          
-          <Col xs={12} md={3}>
-            <Form.Group className="mb-3" >
-              <Form.Label>type of evaluation : </Form.Label>
-              <Form.Select  onChange={(e) => setType(e.target.value)}  aria-label="type select">
-                    <option selected>choose..</option>
-                    {course.type === 'CM' ? 
-                    <>
-                    <option  value="Control">Control</option>
-                    <option  value="Exam">Exam</option>
-                    <option value="Replacement">Replacement</option>
-                    <option value="Make up">Make up</option>
-                    </> : 
-                    <option value="Lab">Lab</option>
-                     }
-              </Form.Select>
-            </Form.Group>
-          </Col>
-          <Col xs={12} md={3}>
-            <Form.Group className="mb-3" >
-              <Form.Label>group : </Form.Label>
-              <Form.Select  onChange={(e) => setGroup(course.promotion?.groups?.filter(group => group.groupNumber===e.target.value)[0])} 
-                            aria-label="type select">
-                <option selected>choose..</option>
-                { course.promotion?.groups?.map(group =>
-                    <option key={group.groupNumber} value={group.groupNumber} >group {group.groupNumber}</option>
-                    )}
-              </Form.Select>
-            </Form.Group>
-          </Col>
-        </Row>
-         {group &&
-                    <>
-                        <Table className="all" striped bordered hover responsive>
-                          <thead>
-                              <tr>
-                                  <th>Student</th>
-                                  <th>{type}</th>
-                                  <th>Absent</th>
-                              </tr>
-                          </thead>
-                          <tbody>
-                              {group.students?.map(student => (
-                                  <tr key={student._id}>
-                                      <td>{student.lastName} {student.firstName} </td>
-                                      <td><Form.Control type="text" 
-                                              onChange={e => updateValue(e, course._id, student._id)} /></td>
-                                      <td><Form.Check 
-                                            ref={ el => inputRef.current[student._id] = el}
-                                            onChange={() => updateAbsent(course._id, student._id)}
-                                            type="checkbox"
-                                            id={student._id}
-                                            //label={`${student.lastName} ${student.firstName}`}
-                                            //disabled={promotion.groups?.filter(group => 
-                                                       // group.students?.some(item => item._id === student._id)).length !== 0 ? true : false}
-                                        /></td>
-                              {/**/}
-                                  </tr>
-                              ))}
-                          </tbody>
-                        </Table>
-                        <Button onClick={postUpdates}>submit</Button>
-                        {/*<Button onClick={postUpdates}>update</Button>*/}
-                    </>
+      <div className='route'>
+          <div>
+            <Row>
+              <Col xs={12} md={3}>
+                <Form.Group className="mb-3" >
+                  <Form.Label>Course</Form.Label>
+                  <Form.Select  onChange={(e) => {/**/setGroup(undefined);
+                                                      setCourse(courses.filter(course => course._id===e.target.value)[0])
+                                                      setType('');
+                                                      }}
+                                aria-label="semester select">
+                      <option >choose..</option>
+                      {courses?.filter(course => JSON.parse(localStorage.getItem('user')).role==='Admin' ? true : 
+                                        course.teacher?._id===JSON.parse(localStorage.getItem('user'))._id)
+                              .map(course => 
+                        <option key={course._id} value={course._id} >{course.name}</option>
+                        )
+                      }
+                  </Form.Select>
+                </Form.Group>
+              </Col>
+              {/*<Col xs={12} md={3}>
+                <Button onClick={() => {setUpdateToggle(false); setFiltered(Search(Courses));}}>
+                  Apply
+                </Button>
+                    </Col>*/}
+              { course && 
+                <>
+                    <Col xs={12} md={3}>
+                      <Form.Group className="mb-3" >
+                        <Form.Label>type of evaluation : </Form.Label>
+                        <Form.Select  onChange={(e) => setType(e.target.value)}  aria-label="type select">
+                              <option selected>choose..</option>
+                              {course.type === 'CM' ? 
+                              <>
+                              <option  value="Control">Control</option>
+                              <option  value="Exam">Exam</option>
+                              <option value="Replacement">Replacement</option>
+                              <option value="Make up">Make up</option>
+                              </> : 
+                              <option value="Lab">Lab</option>
+                              }
+                        </Form.Select>
+                      </Form.Group>
+                    </Col>
+                    <Col xs={12} md={3}>
+                      <Form.Group className="mb-3" >
+                        <Form.Label>group : </Form.Label>
+                        <Form.Select  onChange={(e) => setGroup(course.promotion?.groups?.filter(group => group.groupNumber===e.target.value)[0])} 
+                                      aria-label="type select">
+                          <option selected>choose..</option>
+                          { course.promotion?.groups?.map(group =>
+                              <option key={group.groupNumber} value={group.groupNumber} >group {group.groupNumber}</option>
+                              )}
+                        </Form.Select>
+                      </Form.Group>
+                    </Col>
+                  </>
                 }
-            </>
-          }
+            </Row>
+          </div>
+          <div className='tables'>
+          { course && group &&
+                  <>
+                      <table className="table table-bordered table-hover evaluation-table" >
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Student</th>
+                                <th>{type}</th>
+                                <th>Absent</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {group.students?.map(student => (
+                                <tr key={student._id}>
+                                    <td>{student.studentId} </td>
+                                    <td>{student.lastName} {student.firstName} </td>
+                                    <td><Form.Control type="text" 
+                                            onChange={e => updateValue(e, course._id, student._id)} /></td>
+                                    <td><Form.Check 
+                                          ref={ el => inputRef.current[student._id] = el}
+                                          onChange={() => updateAbsent(course._id, student._id)}
+                                          type="checkbox"
+                                          id={student._id}
+                                          //label={`${student.lastName} ${student.firstName}`}
+                                          //disabled={promotion.groups?.filter(group => 
+                                                      // group.students?.some(item => item._id === student._id)).length !== 0 ? true : false}
+                                      /></td>
+                            {/**/}
+                                </tr>
+                            ))}
+                        </tbody>
+                      </table>
+                      <div className='evaluation-submit-button'>
+                        <Button onClick={postUpdates}>submit</Button>
+                      </div>
+                      
+                      {/*<Button onClick={postUpdates}>update</Button>*/}
+                  </>
+                }
+          </div>
       </div>
     </>
   );

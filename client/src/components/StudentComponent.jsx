@@ -1,7 +1,7 @@
 import * as React from 'react';
 import axios from 'axios';
 
-import { Row, Col, Button, Form, Table, DropdownButton, Dropdown } from 'react-bootstrap';
+import { Row, Col, Button, Form, Table, DropdownButton, Dropdown, Container } from 'react-bootstrap';
 
 import AddStudent from './AddStudent';
 import DeleteStudent from './DeleteStudent';
@@ -54,20 +54,37 @@ export default function StudentComponent () {
 
   return (
     <>
-      <div>
-        <Form.Group className="mb-3" controlId="search-field">
-          <Row>
-            <Col lg={1}>
-              <Form.Label> Find a student:</Form.Label>
+      <div className=''>
+        <Container fluid className='inputs-container bg-white ' >
+          <Row className="inputs-row">
+            <Col md={3} className=''>
+              <Button variant=""
+                      onClick={() => setAddModal(true)} 
+                      className='inputs-button button-primary'>Add student</Button>
             </Col>
-            <Col lg={3}>
-              <Form.Control type="search" placeholder="search for a student" value={q}
-                                    onChange={(e) => setQ(e.target.value)}/>
+            <Col md={2} className=''>
+              <Button variant=""
+                       onClick={() => setRefresh(!refresh)}
+                       className='inputs-button button-secondary' >Refresh</Button>
+            </Col>
+            {/*<Col md={3} >
+              <Button variant="primary"
+                      onClick={() => setDeleteAllModal(true)} 
+                      className='inputs-button'>Delete All</Button>
+            </Col>*/}
+            <Col md={4}>
+              <Form.Control type="search" placeholder="search for a student"
+                            value={q} className='inputs-button'
+                             onChange={(e) => setQ(e.target.value)}/>
             </Col>
           </Row>
-        </Form.Group>
+        </Container>
+        <div className='tables' >
         {rows.length !== 0 && Search(rows).length !== 0 ?
-        (<Table className="all" striped bordered hover responsive>
+        
+        (
+          <table className="table table-striped table-hover student-table" >
+          
           <thead>
             <tr>
               <th>actions</th>
@@ -103,17 +120,18 @@ export default function StudentComponent () {
               </tr>
             ))}
           </tbody>
-        </Table>) : (<h2>no Students to show</h2>)}
-      </div>
+        </table>
+        ) : (<h2 >no Students to show</h2>)}
+        </div>
       <div>
-        <Button variant="primary" onClick={() => setAddModal(true)} >Add student</Button>
-        <Button variant="secondary" onClick={() => setRefresh(!refresh)} >Refresh</Button>
-        <Button variant="primary" onClick={() => setDeleteAllModal(true)} >Delete All</Button>
+        
+        
 
         {addModal && <AddStudent show={addModal} onHide={() => setAddModal(false)}/>}
         {deleteModal && <DeleteStudent show={deleteModal} onHide={() => setDeleteModal(false)} id={id}/>}
         {deleteAllModal && <DeleteAll show={deleteAllModal} onHide={() => setDeleteAllModal(false)}/>}
         {editModal && <EditStudent show={editModal} onHide={() => setEditModal(false)} data={rows} id={id}/>}
+      </div>
       </div>
     </>
   );
