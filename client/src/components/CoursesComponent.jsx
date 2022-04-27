@@ -4,7 +4,7 @@ reflect when component is mounted
 - try find a way to make all updates in a single onChange fct*/ 
 import axios from 'axios';
 import * as React from 'react';
-import { Row, Col, Button, Form, Table, DropdownButton, Dropdown } from 'react-bootstrap';
+import { Row, Col, Container, Button, Form } from 'react-bootstrap';
 
 export default function CoursesComponent () {
 
@@ -89,54 +89,49 @@ export default function CoursesComponent () {
   //console.log(q.semester)
   
   const TeacherUpdate = ({item}) => {
-    
     /*const Search = (teachers: string[]) => {
       return teachers.filter(teacher => teacher.toLowerCase().indexOf(qTeacher.toLowerCase()) > -1)
     }*/
-
-    return (
-      <>
-        <Form.Select onChange={(e) => updateTeacher(e, item)} value={item.teacher} aria-label="teacher select">
-          
-          <option value="" >None</option>
-          {
-            teachers.map(teacher => <option value={teacher._id} >{teacher.firstname} {teacher.lastname}</option>)
-          }
-        </Form.Select>
-      </>
-    );
+        return (
+          <>
+            <Form.Select onChange={(e) => updateTeacher(e, item)} value={item.teacher} aria-label="teacher select">
+              
+              <option value="" >None</option>
+              {
+                teachers.map(teacher => <option value={teacher._id} >{teacher.firstname} {teacher.lastname}</option>)
+              }
+            </Form.Select>
+          </>
+        );
   }
+
   const PromotionUpdate = ({item}) => {
-    
     /*const Search = (teachers: string[]) => {
       return teachers.filter(teacher => teacher.toLowerCase().indexOf(qTeacher.toLowerCase()) > -1)
     }*/
-
-    return (
-      <>
-        <Form.Select onChange={(e) => updatePromotion(e, item)}/*value={`${item.promotion?.year}${item.promotion?.major}`}*/
-                                                                 aria-label="year select">
-          
-          <option value=""  >None</option>
-          {
-            promotions.map(promotion => <option selected={promotion.major===item.promotion?.major ? "selected" : ""}
-                                                value={promotion._id} >{promotion.year} {promotion.major}</option>)
-          }
-        </Form.Select>
-      </>
-    );
+      return (
+        <>
+          <Form.Select onChange={(e) => updatePromotion(e, item)}/*value={`${item.promotion?.year}${item.promotion?.major}`}*/
+                                                                  aria-label="year select">
+            
+            <option value=""  >None</option>
+            {
+              promotions.map(promotion => <option selected={promotion.major===item.promotion?.major ? "selected" : ""}
+                                                  value={promotion._id} >{promotion.year} {promotion.major}</option>)
+            }
+          </Form.Select>
+        </>
+      );
   }
   
-
   return (
     <>
     <div className=''>
-      <div>
-        <Row>
-          <Col xs={12} md={3}>
+      <Container fluid className='inputs-container bg-white ' >
+        <Row className="inputs-row">
+          <Col md={3}>
             <Form.Group className="mb-3" >
-              <Form.Label>Promotion</Form.Label>
-              <Form.Select  onChange={(e) => setQ(state => ({...state, major: e.target.value}))} aria-label="promotion select">
+              <Form.Select className='inputs-button' onChange={(e) => setQ(state => ({...state, major: e.target.value}))} aria-label="promotion select">
                   <option >choose..</option>
                   <option value="L1" >L1</option>
                   <option value="L2" >L2</option>
@@ -146,24 +141,23 @@ export default function CoursesComponent () {
               </Form.Select>
             </Form.Group>
           </Col>
-          <Col xs={12} md={3}>
+          <Col md={3}>
             <Form.Group className="mb-3" >
-              <Form.Label>Semester</Form.Label>
-              <Form.Select  onChange={(e) => setQ(state => ({...state, semester: e.target.value}))} aria-label="semester select">
+              <Form.Select className='inputs-button' onChange={(e) => setQ(state => ({...state, semester: e.target.value}))} aria-label="semester select">
                   <option >choose..</option>
                   <option value="1" >semester 1</option>
                   <option value="2" >semester 2</option>
               </Form.Select>
             </Form.Group>
           </Col>
-          <Col xs={12} md={3}>
-            <Button className='mt-4 course-apply' onClick={() => {setUpdateToggle(false); setFiltered(Search(courses));}}>
+          <Col md={3}>
+            <Button className='inputs-button button-primary' onClick={() => {setUpdateToggle(false); setFiltered(Search(courses));}}>
               Apply
             </Button>
           </Col>
 
         </Row>
-      </div>
+      </Container>
       <div className='tables'>
        { filtered.length !== 0 && 
        <>
@@ -205,14 +199,14 @@ export default function CoursesComponent () {
             ))}
           </tbody>
         </table>
-        
+        <div className='action-button'>
+          <Button className='edit' variant='secondary' onClick={() => setUpdateToggle(true)}>Edit</Button>
+          <Button className='submit'  onClick={postUpdates}>Submit</Button>
+        </div>
         </>
           }
       </div>
-      <div className=''>
-          <Button className='course-edit-button' variant='secondary' onClick={() => setUpdateToggle(true)}>Edit</Button>
-          <Button className='course-submit-button'  onClick={postUpdates}>Submit</Button>
-        </div>
+      
       </div>
     </>
   );

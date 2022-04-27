@@ -1,6 +1,6 @@
 import * as React from 'react';
 import axios from "axios";
-import { Row, Col, Button, Form, Table, DropdownButton, Dropdown } from 'react-bootstrap';
+import {Row, Col, Container, Form} from 'react-bootstrap';
 
 import courseAverage from '../functions/courseAverage';
 import semesterAverage from '../functions/semesterAverage';
@@ -79,29 +79,31 @@ export default function DelibirationComponent() {
     return (
     <>
     <div className=''>
-        <Row>
-          <Col xs={12} md={3}>
-            <Form.Group className="mb-3" >
-              <Form.Label>Promotion</Form.Label>
-              <Form.Select  onChange={(e) => {setGradesByPromo(grades.filter(grade => 
-                                                          grade.student.level===e.target.value));
-                                              setCoursesByPromo(courses.filter(course => 
-                                                            course.major===e.target.value  ))
-                                              setStudentsByPromo(students.filter(student =>
-                                                            student.level===e.target.value))}} 
-                            aria-label="promotion grades select">
-                  <option >choose..</option>
-                  <option value="L1" >L1</option>
-                  <option value="L2" >L2</option>
-                  <option value="L3" >L3</option>
-                  <option value="M1" >M1</option>
-                  <option value="M2" >M2</option>        
-              </Form.Select>
-            </Form.Group>
-          </Col>
-        </Row>
+        <Container fluid className='inputs-container bg-white ' >
+            <Row className="inputs-row">
+                <Col md={3}>
+                    <Form.Group className="" >
+                        <Form.Select  onChange={(e) => {setGradesByPromo(grades.filter(grade => 
+                                                                    grade.student.level===e.target.value));
+                                                        setCoursesByPromo(courses.filter(course => 
+                                                                        course.major===e.target.value  ))
+                                                        setStudentsByPromo(students.filter(student =>
+                                                                        student.level===e.target.value))}} 
+                                        aria-label="promotion grades select"
+                                        className='inputs-button'>
+                            <option >choose..</option>
+                            <option value="L1" >L1</option>
+                            <option value="L2" >L2</option>
+                            <option value="L3" >L3</option>
+                            <option value="M1" >M1</option>
+                            <option value="M2" >M2</option>        
+                        </Form.Select>
+                    </Form.Group>
+                </Col>
+            </Row>
+        </Container>
+        <div className='tables'>
         {studentsByPromo.length!==0 &&
-        <Row>
             <table id='table' className="table table-bordered table-hover deliberation-table" >
             <thead>
                 <tr>
@@ -147,7 +149,8 @@ export default function DelibirationComponent() {
                 )}
             </tbody>
             </table>
-        </Row>}
+            }
+        </div>
         </div>
     </>
     );

@@ -5,7 +5,7 @@ import AddPromotion from './AddPromotion';
 import EditPromotion from './EditPromotion';
 import DeletePromotion from './DeletePromotion';
 //imrse, ffc, sfc
-import { Row, Col, Button, Form, Table, DropdownButton, Dropdown } from 'react-bootstrap';
+import { Row, Col, Container, Button, Form, DropdownButton, Dropdown } from 'react-bootstrap';
 
 
 export default function PromotionComponent () {
@@ -53,28 +53,31 @@ export default function PromotionComponent () {
 
   return (
     <>  
-      <div className='route'>
-        <div >
-          <Row>
-            
+      <div className=''>
+        <Container fluid className='inputs-container bg-white ' >
+          <Row className="inputs-row">
             <Col md={2}  >
-                <Button variant="primary" onClick={() => setAddModal(true)} >Add promotion</Button>
+                <Button variant="" 
+                        onClick={() => setAddModal(true)}
+                        className='inputs-button button-primary' >Add promotion</Button>
             </Col>
             <Col md={4}>
-                <Button variant="secondary" onClick={() => setRefresh(!refresh)} >Refresh</Button>
+                <Button variant=""
+                        onClick={() => setRefresh(!refresh)}
+                        className='inputs-button button-secondary' >Refresh</Button>
             </Col>
             <Col md={3}>
                 <Form.Control type="search" placeholder="search for a promotion" value={q}
-                                            onChange={(e) => setQ(e.target.value)}/>
+                              className='inputs-button' onChange={(e) => setQ(e.target.value)}/>
             </Col>
           </Row>
-        </div>
+        </Container>
         <div className='tables'>
             {promotions.length !== 0 && Search(promotions).length !== 0 ?
             (<table className="table table-bordered table-hover promotion-table" >
                 <thead>
                     <tr>
-                        <th style={{width: "500px"}}>Actions</th>
+                        <th>Actions</th>
                         <th>Academic year</th>
                         <th>Degree</th>
                         <th>Major</th>

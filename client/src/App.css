@@ -13,16 +13,7 @@
 }
 
 
-.sidebar {
-  position: sticky;
-  z-index: 80;
-  top: 70px;
-  background-color: white;
-  padding: 0 0;
-  border-color: black;
-   /* Behind the navbar */
-   /* Height of navbar */
-}
+
 .Nav-Link {
   margin: 0 0.75rem;
   padding: .8rem 1rem; 
@@ -43,11 +34,27 @@
 .Link-active > span{
   color: #063d80;
 }
+
+
+.sidebar {
+  position: sticky;
+  z-index: 80;
+  top: 70px;
+  background-color: white;
+  padding: 0 0;
+  border-color: black;
+   /* Behind the navbar */
+   /* Height of navbar */
+}
 .sidebar-collapse {
   padding: 1.5rem 0;
   border-color: #063d80;
+  
 }
- 
+ .main-section {
+  background-color: #ebedf7;
+  
+}
 
 @media (min-width: 767.98px) {
   .sidebar {
@@ -55,45 +62,44 @@
     top: 0;
     bottom: 0;
     left: 0;
-    
     padding: 70px 0 0;
     
   }
   .sidebar-collapse {
+    
     height: calc(100vh - 70px);
+    
     
   }
   .main-section {
-    background-color: #ebedf7;
-    
-  }
-}
-
-.main-section {
-  background-color: #ebedf7;
-  
-}
-
-@media (max-width: 767.98px) {
-  .inputs-container {
     display: flex;
     justify-content: center;
-    padding: 1.5rem .5rem;
-    border-radius: 10px;
-    border-color: black;
-    background-color: white;
-    
-  }
-  .inputs-row {
-    width: 70%;
-    gap: .5rem;
-  }
-  .inputs-button {
-    width: 100%;
-    height: 3.25rem;
-    border-radius: 7px;
   }
 }
+
+
+
+
+.inputs-container {
+  display: flex;
+  justify-content: center;
+  padding: 1.5rem .5rem;
+  border-radius: 10px;
+  border-color: black;
+  background-color: white;
+  width: 100%;
+  
+}
+.inputs-row {
+  width: 70%;
+  gap: .5rem;
+}
+.inputs-button {
+  width: 100%;
+  height: 3.25rem;
+  border-radius: 7px;
+}
+
 
 .button-primary {
   background-color: #063d80;
@@ -120,14 +126,46 @@
   border-radius: 10px;
   margin-top: 1.5rem;
   border-color: #063d80;
+  position: relative;
 }
+
+.action-button {
+  padding: 1rem 1rem;
+  display: flex;
+  justify-content: end;
+  gap: 1rem;
+  position: sticky;
+  left: 0px;
+  
+}
+.action-button .submit{
+  background-color: #063d80;
+  color: white;
+  border-color: #063d80;
+}
+.action-button .edit{
+  background-color: #ebedf7;
+  color: #063d80;
+  border-color: #063d80;
+}
+.action-button .submit:hover {
+  background-color: #004aa5;
+  color: #ebedf7;
+}
+.action-button .edit:hover {
+  background-color: #004aa5;
+  color: white;
+}
+
+
+
 
 
 .list-group {
   margin-bottom: 10px;
   border-radius: 15px;
 }
-
+/*
 .student-table {
   
   width: 1370px;
@@ -178,13 +216,6 @@
 }
 
 
-.groups {
-  background-color: #e6e5e3;
-}
-
-
-
-
 
 
 .course-table {
@@ -209,16 +240,7 @@
   
 }
 
-.course-submit-button {
-  margin-left: 20px;
-  margin-right: 420px;
-}
-.course-edit-button {
-  
-}
-.course-apply {
-  padding: 8px;
-}
+
 
 
 
@@ -247,11 +269,7 @@
   max-width: 175px;
   min-width: 175px;
 }
-.evaluation-submit-button {
-  display: flex;
-  justify-content: end;
-  width: 720px;
-}
+
 
 
 
@@ -284,7 +302,7 @@
 #delib-courses {
   max-width: 70px;
   min-width: 70px;
-}
+}*/
 
 
 
@@ -305,16 +323,5 @@
 
 
 
-
-.promotion-groups {
-  padding-top: 30px;
-}
-
-
-
-
-.main-content {
-  
-}
 
 

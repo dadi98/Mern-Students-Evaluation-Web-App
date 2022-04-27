@@ -1,6 +1,6 @@
 import axios from 'axios';
 import * as React from 'react';
-import { Row, Col, Button, Form, Table, DropdownButton, Dropdown } from 'react-bootstrap';
+import { Row, Col, Container, Button, Form, Table, DropdownButton, Dropdown } from 'react-bootstrap';
 
 export default function GradeComponent () {
   
@@ -139,17 +139,17 @@ export default function GradeComponent () {
 
   return (
     <>
-      <div className='route'>
-          <div>
-            <Row>
-              <Col xs={12} md={3}>
-                <Form.Group className="mb-3" >
-                  <Form.Label>Course</Form.Label>
+      <div className=''>
+          <Container fluid className='inputs-container bg-white ' >
+            <Row className="inputs-row">
+              <Col md={3}>
+                <Form.Group className="" >
                   <Form.Select  onChange={(e) => {/**/setGroup(undefined);
                                                       setCourse(courses.filter(course => course._id===e.target.value)[0])
                                                       setType('');
                                                       }}
-                                aria-label="semester select">
+                                aria-label="semester select"
+                                className='inputs-button'>
                       <option >choose..</option>
                       {courses?.filter(course => JSON.parse(localStorage.getItem('user')).role==='Admin' ? true : 
                                         course.teacher?._id===JSON.parse(localStorage.getItem('user'))._id)
@@ -167,39 +167,40 @@ export default function GradeComponent () {
                     </Col>*/}
               { course && 
                 <>
-                    <Col xs={12} md={3}>
-                      <Form.Group className="mb-3" >
-                        <Form.Label>type of evaluation : </Form.Label>
-                        <Form.Select  onChange={(e) => setType(e.target.value)}  aria-label="type select">
-                              <option selected>choose..</option>
-                              {course.type === 'CM' ? 
-                              <>
-                              <option  value="Control">Control</option>
-                              <option  value="Exam">Exam</option>
-                              <option value="Replacement">Replacement</option>
-                              <option value="Make up">Make up</option>
-                              </> : 
-                              <option value="Lab">Lab</option>
-                              }
-                        </Form.Select>
-                      </Form.Group>
-                    </Col>
-                    <Col xs={12} md={3}>
-                      <Form.Group className="mb-3" >
-                        <Form.Label>group : </Form.Label>
-                        <Form.Select  onChange={(e) => setGroup(course.promotion?.groups?.filter(group => group.groupNumber===e.target.value)[0])} 
-                                      aria-label="type select">
-                          <option selected>choose..</option>
-                          { course.promotion?.groups?.map(group =>
-                              <option key={group.groupNumber} value={group.groupNumber} >group {group.groupNumber}</option>
-                              )}
-                        </Form.Select>
-                      </Form.Group>
-                    </Col>
-                  </>
-                }
+                  <Col md={3}>
+                    <Form.Group className="" >
+                      <Form.Select  onChange={(e) => setType(e.target.value)}
+                                    aria-label="type select"
+                                    className='inputs-button'>
+                            <option selected>choose..</option>
+                            {course.type === 'CM' ? 
+                            <>
+                            <option  value="Control">Control</option>
+                            <option  value="Exam">Exam</option>
+                            <option value="Replacement">Replacement</option>
+                            <option value="Make up">Make up</option>
+                            </> : 
+                            <option value="Lab">Lab</option>
+                            }
+                      </Form.Select>
+                    </Form.Group>
+                  </Col>
+                  <Col md={3}>
+                    <Form.Group className="" >
+                      <Form.Select  onChange={(e) => setGroup(course.promotion?.groups?.filter(group => group.groupNumber===e.target.value)[0])} 
+                                    aria-label="type select"
+                                    className='inputs-button'>
+                        <option selected>choose..</option>
+                        { course.promotion?.groups?.map(group =>
+                            <option key={group.groupNumber} value={group.groupNumber} >group {group.groupNumber}</option>
+                            )}
+                      </Form.Select>
+                    </Form.Group>
+                  </Col>
+                </>
+              }
             </Row>
-          </div>
+          </Container>
           <div className='tables'>
           { course && group &&
                   <>
@@ -233,8 +234,8 @@ export default function GradeComponent () {
                             ))}
                         </tbody>
                       </table>
-                      <div className='evaluation-submit-button'>
-                        <Button onClick={postUpdates}>submit</Button>
+                      <div className='action-button'>
+                        <Button className='submit' onClick={postUpdates}>submit</Button>
                       </div>
                       
                       {/*<Button onClick={postUpdates}>update</Button>*/}

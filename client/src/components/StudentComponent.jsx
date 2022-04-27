@@ -1,7 +1,7 @@
 import * as React from 'react';
 import axios from 'axios';
 
-import { Row, Col, Button, Form, Table, DropdownButton, Dropdown, Container } from 'react-bootstrap';
+import { Row, Col, Container, Button, Form, DropdownButton, Dropdown } from 'react-bootstrap';
 
 import AddStudent from './AddStudent';
 import DeleteStudent from './DeleteStudent';

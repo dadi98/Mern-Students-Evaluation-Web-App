@@ -17,7 +17,7 @@ export default function SideDialog({user, open, setOpen}){
     return (
         <>  
             <Collapse in={open} className='d-md-block sidebar-collapse'>
-            <div id="collapse-sidebar " className='' >
+            <div  className='' >
             {user.role==='Admin' ?
                 (<Nav id='sidebar' avtiveKey='dash' className="flex-column " 
                       onSelect={() => setOpen()}>
