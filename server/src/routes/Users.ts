@@ -21,6 +21,36 @@ router.get('/', /* authenticate.verifyUser, authenticate.verifyAdmin,*/ function
     ).catch((err: any) => next(err));
 });
 
+
+router.route('/:userId')
+/*.put(async(req: Request, res: Response, next: NextFunction) => {
+  const { userId } = req.params;
+  try{
+      let user = await User.findByIdAndUpdate(userId, {
+          $set: req.body
+      }, { new: true });
+      return res.status(200).setHeader('Content-Type', 'application/json').json(user);
+  }
+  catch(err){
+      if(err instanceof Error) {
+          next(err);
+      }
+  }
+})*/
+.delete(async(req: Request, res: Response, next: NextFunction) => {
+  const { userId } = req.params;
+  try{
+      await User.findByIdAndRemove(userId);
+      return res.status(200).json({ message: 'student deleted successfully.' });
+  }
+  catch(err){
+      if(err instanceof Error) {
+          next(err);
+      }
+  }
+});
+
+
 router.post('/signup', (req, res, next) => {
   User.register(new User({username: req.body.username}), 
     req.body.password, (err: any, user: any) => {

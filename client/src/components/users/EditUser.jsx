@@ -17,8 +17,12 @@ const EditUser = ({show, onHide, data, id}) => {
     const editUser = async(e) => {
       e.preventDefault();
       try {
-        await axios.put(`http://localhost:3000/promotions/${id}`, {firstname, lastname, username, password, role})
-  
+        if(!password) {
+          await axios.put(`http://localhost:3000/users/${id}`, {firstname, lastname, username, role})
+        } else {
+          await axios.put(`http://localhost:3000/users/${id}`, {firstname, lastname, username, password, role})
+        } 
+
       } catch (err) {
         if(err instanceof Error){
           console.log(err.message);
@@ -40,43 +44,32 @@ const EditUser = ({show, onHide, data, id}) => {
               <Row>
                   <Col xs={12} md={6}>
                     <Form.Group className="mb-3" >
-                      <Form.Label>Academic year</Form.Label>
-                      <Form.Control type="text" placeholder="Academic year" value={year}
-                                    onChange={e => setYear(e.target.value)}/>
+                      <Form.Label>First Name</Form.Label>
+                      <Form.Control type="text" placeholder="first name" value={firstname}
+                                    onChange={e => setFirstname(e.target.value)}/>
                     </Form.Group>
                   </Col>
                   <Col xs={12} md={6}>
                     <Form.Group className="mb-3" >
-                      <Form.Label>Degree</Form.Label>
-                      <Form.Select  value={degree} onChange={e => setDegree(e.target.value)} 
-                                    aria-label="degree select">
-                                <option >choose..</option> 
-                                <option value="License" >License</option>
-                                <option value="Master" >Master</option> 
-                            </Form.Select>
+                      <Form.Label>last Name</Form.Label>
+                      <Form.Control type="text" placeholder="last name" value={lastname}
+                                    onChange={e => setLastname(e.target.value)}/>
                     </Form.Group>
                   </Col>
                 </Row>
                 <Row>
                   <Col xs={12} md={6}>
                     <Form.Group className="mb-3" >
-                      <Form.Label>Major</Form.Label>
-                      <Form.Select  value={major} onChange={e => setMajor(e.target.value)} 
-                                    aria-label="major select">
-                                <option >choose..</option>
-                                <option value="L1" >L1</option>
-                                <option value="L2" >L2</option>
-                                <option value="L3" >L3</option>
-                                <option value="M1" >M1</option>
-                                <option value="M2" >M2</option>
-                            </Form.Select>
+                      <Form.Label>Username</Form.Label>
+                      <Form.Control type="text" placeholder="username" value={username}
+                                    onChange={e => setUsername(e.target.value)}/>
                     </Form.Group>
                   </Col>
                   <Col xs={12} md={6}>
                     <Form.Group className="mb-3" >
-                      <Form.Label>Number of Groups</Form.Label>
-                      <Form.Control type="text" placeholder="num of groups" value={numberOfGroups}
-                                    onChange={e => setNumberOfGroups(e.target.value)}/>
+                      <Form.Label>New Password </Form.Label>
+                      <Form.Control type="password" placeholder="new password" value={numberOfGroups}
+                                    onChange={e => setPassword(e.target.value)}/>
                     </Form.Group>
                   </Col>
                 </Row>            

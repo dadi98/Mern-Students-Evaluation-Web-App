@@ -24,7 +24,7 @@ const { BAD_REQUEST } = StatusCodes;
 const connect = mongoose.connect("mongodb://localhost:27017/grades");
 connect.then((db) => {
     console.log("Connected correctly to server");
-    seedDb();
+    //seedDb();
 }, (err) => { console.log(err); });
 
 

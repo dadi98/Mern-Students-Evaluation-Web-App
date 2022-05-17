@@ -3,7 +3,11 @@ import axios from 'axios';
 
 import { Row, Col, Container, Button, Form, DropdownButton, Dropdown } from 'react-bootstrap';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrashCan } from '@fortawesome/free-regular-svg-icons'
+
 import AddUser from './AddUser';
+import DeleteUser from './DeleteUser'
 
 export default function UserComponent () {
 
@@ -13,8 +17,8 @@ export default function UserComponent () {
 
   const [addModal, setAddModal] = React.useState(false);
   const [deleteModal, setDeleteModal] = React.useState(false);
-  const [deleteAllModal, setDeleteAllModal] = React.useState(false);
-  const [editModal, setEditModal] = React.useState(false);
+  //const [deleteAllModal, setDeleteAllModal] = React.useState(false);
+  //const [editModal, setEditModal] = React.useState(false);
   const [id, setId] = React.useState();
   
   const [refresh, setRefresh] = React.useState(false);
@@ -85,7 +89,8 @@ export default function UserComponent () {
           
           <thead>
             <tr>
-              <th>first Name</th>
+              <th>Actions</th>
+              <th>First Name</th>
               <th>Last Name</th>
               <th>Username</th>
               <th>Role</th>
@@ -94,6 +99,11 @@ export default function UserComponent () {
           <tbody>
             {Search(users).map(item => (
               <tr key={item._id} >
+                <td>
+                    <FontAwesomeIcon onClick={() => {setId(item._id); setDeleteModal(true);}} 
+                                     icon={faTrashCan} 
+                                     className='trash-icon' />
+                </td>
                 <td>{item.firstname}</td>
                 <td>{item.lastname}</td>
                 <td>{item.username}</td>
@@ -109,10 +119,10 @@ export default function UserComponent () {
         
 
         {addModal && <AddUser show={addModal} onHide={() => setAddModal(false)}/>}
-        {/*{deleteModal && <DeleteStudent show={deleteModal} onHide={() => setDeleteModal(false)} id={id}/>}
-        {deleteAllModal && <DeleteAll show={deleteAllModal} onHide={() => setDeleteAllModal(false)}/>}
-            {editModal && <EditStudent show={editModal} onHide={() => setEditModal(false)} data={users} id={id}/>}*/}
-      </div>
+        {deleteModal && <DeleteUser show={deleteModal} onHide={() => setDeleteModal(false)} id={id}/>}
+        {/*{deleteAllModal && <DeleteAll show={deleteAllModal} onHide={() => setDeleteAllModal(false)}/>}
+        {editModal && <EditStudent show={editModal} onHide={() => setEditModal(false)} data={users} id={id}/>}*/}
+        </div>
       </div>
     </>
   );

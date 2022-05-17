@@ -131,7 +131,7 @@ export default function StudentComponent () {
 
         {addModal && <AddStudent show={addModal} onHide={() => setAddModal(false)}/>}
         {deleteModal && <DeleteStudent show={deleteModal} onHide={() => setDeleteModal(false)} id={id}/>}
-        {deleteAllModal && <DeleteAll show={deleteAllModal} onHide={() => setDeleteAllModal(false)}/>}
+        {/*deleteAllModal && <DeleteAll show={deleteAllModal} onHide={() => setDeleteAllModal(false)}/>*/}
         {editModal && <EditStudent show={editModal} onHide={() => setEditModal(false)} data={rows} id={id}/>}
       </div>
       </div>

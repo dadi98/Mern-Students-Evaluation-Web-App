@@ -2,6 +2,10 @@ import * as React from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom'
 import { Row, Col, Button, Form, Table, DropdownButton, Dropdown, Container, ListGroup} from 'react-bootstrap';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrashCan } from '@fortawesome/free-regular-svg-icons'
+
 import AssignStudents from './AssignStudents';
 //imrse, ffc, sfc
 export default function GroupComponent () {
@@ -57,6 +61,21 @@ export default function GroupComponent () {
     setRefresh(!refresh);
   }
 
+  const deleteGroup = async(groupId) => {
+    
+
+    try {
+        await axios.delete(`http://localhost:3000/promotions/${promotion._id}/groups/${groupId}`)
+    } catch (err) {
+        if(err instanceof Error){
+            console.log(err.message);
+            //console.log(err.message);
+        }
+    } 
+
+    setRefresh(!refresh);
+  }
+
   return (
     <>
       
@@ -90,8 +109,11 @@ export default function GroupComponent () {
                       <ListGroup.Item key={group._id} as="li" 
                                       action variant='light' 
                                       onClick={() => setGroupId(group._id)} 
-                                      className=""> 
+                                      className="d-flex"> 
                         Group: {group.groupNumber}
+                        <FontAwesomeIcon onClick={() => deleteGroup(group._id)} 
+                                         icon={faTrashCan} 
+                                         className='trash-icon' />
                       </ListGroup.Item>
                     )}
                     </ListGroup>
@@ -102,7 +124,6 @@ export default function GroupComponent () {
              </Col>
             </Row>
           </Container>
-       
     </>
   );
 }
