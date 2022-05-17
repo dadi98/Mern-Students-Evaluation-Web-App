@@ -10,6 +10,7 @@ import 'express-async-errors';
 //import BaseRouter from './routes';
 import logger from '@shared/Logger';
 import mongoose from 'mongoose';
+import seedDb from './seedMongo';
 
 import studentRouter from './routes/students'
 import courseRouter from './routes/courses';
@@ -23,6 +24,7 @@ const { BAD_REQUEST } = StatusCodes;
 const connect = mongoose.connect("mongodb://localhost:27017/grades");
 connect.then((db) => {
     console.log("Connected correctly to server");
+    seedDb();
 }, (err) => { console.log(err); });
 
 

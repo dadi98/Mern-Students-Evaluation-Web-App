@@ -36,6 +36,7 @@ export default function DelibirationComponent() {
     const [studentsByPromo, setStudentsByPromo] = React.useState([]);
     const [courses, setCourses] = React.useState([]);
     const [coursesByPromo, setCoursesByPromo] = React.useState([]);
+    const [group, setGroup] = React.useState();
     //const inpRef = React.useRef({});
     //console.log(coursesByPromo)
     //console.log(inpRef);
@@ -86,12 +87,11 @@ export default function DelibirationComponent() {
                         <Form.Select  onChange={(e) => {setGradesByPromo(grades.filter(grade => 
                                                                     grade.student.level===e.target.value));
                                                         setCoursesByPromo(courses.filter(course => 
-                                                                        course.major===e.target.value  ))
-                                                        setStudentsByPromo(students.filter(student =>
-                                                                        student.level===e.target.value))}} 
+                                                                        course.major===e.target.value  ));
+                                                        }} 
                                         aria-label="promotion grades select"
                                         className='inputs-button'>
-                            <option >choose..</option>
+                            <option >Promotion...</option>
                             <option value="L1" >L1</option>
                             <option value="L2" >L2</option>
                             <option value="L3" >L3</option>
@@ -100,11 +100,28 @@ export default function DelibirationComponent() {
                         </Form.Select>
                     </Form.Group>
                 </Col>
+                { gradesByPromo.length!==0 &&
+                <Col md={3}>
+                    <Form.Group className="" >
+                        <Form.Select  onChange={(e) => {setStudentsByPromo(courses[0].promotion?.groups.filter(group =>
+                                                                        group.groupNumber===e.target.value)[0].students);
+                                                        setGroup(e.target.value);}} 
+                                        aria-label="promotion grades select"
+                                        className='inputs-button'>
+                            <option >Select group...</option>
+                            {[...Array(courses[0].promotion?.numberOfGroups).keys()].map(x =>
+                                      <option key={ x + 1 } value={ x + 1 } > Group { x + 1 } </option>
+                                    )}
+                                   
+                        </Form.Select>
+                    </Form.Group>
+                </Col>}
             </Row>
         </Container>
-        <div className='tables'>
-        {studentsByPromo.length!==0 &&
-            <table id='table' className="table table-bordered table-hover deliberation-table" >
+        <div className='tables' style={{ }}>
+        {studentsByPromo.length!==0 && 
+            <table id='table' 
+                   className="table table-bordered table-hover deliberation-table" >
             <thead>
                 <tr>
                 <th>ID</th>
@@ -123,7 +140,7 @@ export default function DelibirationComponent() {
                 <th>decision</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody style={{maxHeight: '500px'}}>
                 {studentsByPromo.map(student =>
                 <tr key={student._id}>
                    <td>{student.studentId}</td>

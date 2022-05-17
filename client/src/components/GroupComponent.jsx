@@ -59,59 +59,50 @@ export default function GroupComponent () {
 
   return (
     <>
-      <div className='promotion-groups'>
-        <Container>
-          <Row>
-              <Col md={5} className=''>
-                <div style={{/*backgroundColor: "#e6e5e3"*/}} className='groups d-flex justify-content-center  '>
-                  <div className='w-75 '>
-                    <h4> Promotion {promotion.year} {promotion.major}</h4>
+      
+        <Container  className='my-2 px-0 groups-container'>
+          <Row className=''>
+              <Col xs={12} md={4} className=''>
+                <div style={{/**/height: "12.5rem"}} className='groups-section'>
+                  
+                    <h4 className='groups-section-header'> Promotion {promotion.year} {promotion.major}</h4>
                     <Form onSubmit={addGroup}>
-                        <Row>
-                            <Col xs={12} md={8}>
-                                <Form.Group className="mb-5" >
-                                    <Form.Select  defaultValue={'3'}
-                                                  onChange={(e) => setGroup(state => ({...state, groupNumber: e.target.value}))}
-                                                  aria-label="promotion select">
-                                        <option >Select Group</option>
-                                        {[...Array(promotion?.numberOfGroups).keys()].map(x =>
-                                              <option key={ x + 1 } value={ x + 1 } > { x + 1 } </option>
-                                            )}
-                                    </Form.Select>
-                                </Form.Group>
-                            </Col>
-                            <Col xs={12} md={4} style={{backgroundColor: "red"}} >
-                                <Button  type="submit" className='ms-auto'>
-                                    Add Group
-                                </Button>
-                            </Col>
-                        </Row>
-                    </Form>
-                  </div>
-                </div>
-                <div className='groups mt-4'>
-                  <div className='ms-4'>
-                    <h4>  Promotion {promotion.year} {promotion.major} groups:</h4>
+                        <Form.Group className="" >
+                            <Form.Select  defaultValue={'3'}
+                                          onChange={(e) => setGroup(state => ({...state, groupNumber: e.target.value}))}
+                                          aria-label="promotion select">
+                                <option >Select Group</option>
+                                {[...Array(promotion?.numberOfGroups).keys()].map(x =>
+                                      <option key={ x + 1 } value={ x + 1 } > { x + 1 } </option>
+                                    )}
+                            </Form.Select>
+                        </Form.Group>
                     
-                      {promotion.groups?.map(group => 
-                        
-                          <ListGroup.Item key={group._id} as="li" 
-                                          action variant='light' 
-                                          onClick={() => setGroupId(group._id)} 
-                                          className="mb-2"> 
-                            Group: {group.groupNumber}
-                          </ListGroup.Item>
-                        
-                      )}
-                  </div> 
+                        <Button  type="submit" className='groups-section-button'>
+                            Add Group
+                        </Button>
+                    </Form>
                 </div>
+                <div className='groups-section' style={{/**/height: "27rem"}}>
+                  <h4 className='groups-section-header'> Promotion {promotion.year} {promotion.major} groups:</h4>
+                  <ListGroup as="ul" className="groups-section-list-group">
+                    {promotion.groups?.map(group => 
+                      <ListGroup.Item key={group._id} as="li" 
+                                      action variant='light' 
+                                      onClick={() => setGroupId(group._id)} 
+                                      className=""> 
+                        Group: {group.groupNumber}
+                      </ListGroup.Item>
+                    )}
+                    </ListGroup>
+                </div> 
              </Col>
-             <Col>
+             <Col xs={12} md={8} className=''>
                 <AssignStudents promoId={promoId} groupId={groupId}/>
              </Col>
             </Row>
           </Container>
-        </div>
+       
     </>
   );
 }

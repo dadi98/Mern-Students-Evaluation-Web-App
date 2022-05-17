@@ -1,10 +1,9 @@
 import * as React from 'react';
-import axios from "axios";
-import {Container, Row, Col, Button, Form } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { Modal, Container, Row, Col, Button, Form } from 'react-bootstrap';
 
-export default function SignupPage() {
-    
+const AddUser = ({show, onHide}) => {
+
     const [user, setUser] = React.useState({firstname: '', lastname: '', username: '', password: '', role: 'Teacher'});
     const [error, setError] = React.useState('');
     //const [students, setStudents] = React.useState([]);
@@ -19,20 +18,26 @@ export default function SignupPage() {
         try {
             const { data } = await axios.post('http://localhost:3000/users/signup', user)
             //console.log(data)
-            if(data.success) {
+            /*if(data.success) {
                 alert(data.status);
-            } 
-        } catch (err) {
-            setError(err.message);
+            } */
+        } catch (error) {
+            setError(error.message);
         }
 
     }
-    
+
     return (
-    <>
-        <Form onSubmit={handleSignup}>
-            {error && (<h4>{error}</h4>)}
-            <Container>
+        <div>
+        <Modal size={'lg'} show={show} onHide={onHide} aria-labelledby="contained-modal-title-vcenter">
+            <Form onSubmit={e => {handleSignup(e); onHide();}}>
+            <Modal.Header closeButton>
+                <Modal.Title id="contained-modal-title-vcenter">
+                    Add User
+                </Modal.Title>
+            </Modal.Header>
+            <Modal.Body className="show-grid">
+                <Container>
                 <Row>
                     <Col xs={12} md={6}>
                         <Form.Group className="mb-3" >
@@ -41,14 +46,12 @@ export default function SignupPage() {
                                         onChange={e => setUser(state => ({...state, firstname: e.target.value}))}/>
                         </Form.Group>
                     </Col>
-                </Row>
-                <Row>
                     <Col xs={12} md={6}>
-                    <Form.Group className="mb-3" >
-                        <Form.Label>Last name : </Form.Label>
-                        <Form.Control type="text" placeholder="enter lastname..." value={user.lastname} 
-                                    onChange={e => setUser(state => ({...state, lastname: e.target.value}))}/>
-                    </Form.Group>
+                        <Form.Group className="mb-3" >
+                            <Form.Label>Last name : </Form.Label>
+                            <Form.Control type="text" placeholder="enter lastname..." value={user.lastname} 
+                                        onChange={e => setUser(state => ({...state, lastname: e.target.value}))}/>
+                        </Form.Group>
                     </Col>
                 </Row>
                 <Row>
@@ -59,18 +62,16 @@ export default function SignupPage() {
                                         onChange={e => setUser(state => ({...state, username: e.target.value}))}/>
                         </Form.Group>
                     </Col>
-                </Row>
-                <Row>
                     <Col xs={12} md={6}>
-                    <Form.Group className="mb-3" >
-                        <Form.Label>Password : </Form.Label>
-                        <Form.Control type="password" placeholder="enter password..." value={user.password} 
-                                    onChange={e => setUser(state => ({...state, password: e.target.value}))}/>
-                    </Form.Group>
+                        <Form.Group className="mb-3" >
+                            <Form.Label>Password : </Form.Label>
+                            <Form.Control type="password" placeholder="enter password..." value={user.password} 
+                                        onChange={e => setUser(state => ({...state, password: e.target.value}))}/>
+                        </Form.Group>
                     </Col>
                 </Row>
                 <Row>
-                <Col xs={12} md={3}>
+                    <Col xs={12} md={6}>
                     <Form.Group className="mb-3" >
                         <Form.Label>Role : </Form.Label>
                         <Form.Select  value={user.role}
@@ -80,17 +81,18 @@ export default function SignupPage() {
                             <option value="Admin">admin</option>
                         </Form.Select>
                     </Form.Group>
-                </Col>
-                </Row>
-                <Row>
-                    <Col xs={12} md={6}>
-                        <Button type="submit" > Signup </Button>
                     </Col>
-                </Row>            
-            </Container>
-        </Form>
-    </>
-    );
+                </Row>          
+                </Container>
+            </Modal.Body>
+            <Modal.Footer>
+                <Button variant="secondary" onClick={onHide} >Close</Button>
+                <Button type="submit" >Add</Button>
+            </Modal.Footer>
+            </Form>
+        </Modal>
+        </div>
+    )
 }
 
- 
+export default AddUser;

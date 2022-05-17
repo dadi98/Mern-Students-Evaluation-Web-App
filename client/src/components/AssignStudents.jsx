@@ -2,7 +2,7 @@ import * as React from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom'
 //imrse, ffc, sfc
-import { Row, Col, Button, Form, ListGroup, Table, DropdownButton, Dropdown } from 'react-bootstrap';
+import { Row, Col, Button, Form, ListGroup, Table, DropdownButton, Dropdown, Container } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashCan } from '@fortawesome/free-regular-svg-icons'
 
@@ -98,56 +98,54 @@ export default function AssignStudents ({promoId, groupId}) {
   }*/
   return (
     <>
-        
+       <Container  className='px-0 '>
         {group && 
         (<>
-          <Row>
-            <Col md={6}>
-              <div className='d-flex justify-content-center groups'>
-                <h2> Add student to group {group.groupNumber}: </h2>
-                <Form onSubmit={addStudents}>
-                  <Row>
+          <Row className='mx-0'>
+            <Col xs={12} md={6} className='groups-section' style={{/**/height: "41rem"}}>
+                <h4 className='groups-section-header'> Add students to group {group.groupNumber} : </h4>
+                <Form onSubmit={addStudents} style={{/**/height: "100%"}}>
+                    <ListGroup as="ul" className="groups-section-list-group">
                     {students && students.map(student => (
 
-                      <div key={student._id} className="mb-3">
+                      <ListGroup.Item as="li" key={student._id}>
                         <Form.Check
                           ref={el => inputRef.current[student._id] = el}
                           type="checkbox"
                           id={student._id}
                           label={`${student.lastName} ${student.firstName}`}
                           disabled={promotion.groups?.filter(group => group.students?.some(item => item._id === student._id)).length !== 0 ? true : false} />
-                      </div>
+                      </ListGroup.Item>
 
                     ))}
-
-                  </Row>
-                  <Col xs={12} md={2}>
-                    <Button type="submit">
+                    </ListGroup>
+                    <Button type="submit" className='groups-section-button'>
                       Update
                     </Button>
-                    
-                  </Col>
                 </Form>
-              </div>
             </Col>
-            <Col md={6}>
-              <div className='d-flex justify-content-center groups'>
-                <h2> Group {group.groupNumber} students: </h2>
-                <ListGroup as="ol" numbered>
+            <Col xs={12} md={6} className=' group-students' >
+              <div style={{width: ''}} className='groups-section' style={{/**/height: "41rem"}}>
+                <h4 className='groups-section-header'> Group {group.groupNumber} students: </h4>
+                <ListGroup as="ul" className="groups-section-list-group">
                   {group.students && group.students.map(student => (
 
-                    <ListGroup.Item as="li" key={student._id}>
+                    <ListGroup.Item as="li" key={student._id} style={{display:'flex'}}>
                       {student.lastName} {student.firstName} {`        `}
-                      <FontAwesomeIcon onClick={() => removeStudent(student._id)} icon={faTrashCan} />
+                      
+                      <FontAwesomeIcon onClick={() => removeStudent(student._id)} 
+                                       icon={faTrashCan} 
+                                       className='trash-icon' />
                     </ListGroup.Item>
                   )
                   )}
                 </ListGroup>
-              </div>
+                </div>
             </Col>
           </Row>
         </>)
       } 
+      </Container> 
     </>
   );
 }

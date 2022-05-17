@@ -29,6 +29,8 @@ export default function StudentComponent () {
     const getStudents = async() => {
       try {
         const { data } = await axios.get('http://localhost:3000/students');
+        const studs = data.filter(item => item.level==="L1").map(item => item._id);
+        console.log(studs);
         setRows(data);
         //console.log(data);
           return data;
@@ -57,7 +59,7 @@ export default function StudentComponent () {
       <div className=''>
         <Container fluid className='inputs-container bg-white ' >
           <Row className="inputs-row">
-            <Col md={3} className=''>
+            <Col md={2} className=''>
               <Button variant=""
                       onClick={() => setAddModal(true)} 
                       className='inputs-button button-primary'>Add student</Button>
@@ -72,8 +74,8 @@ export default function StudentComponent () {
                       onClick={() => setDeleteAllModal(true)} 
                       className='inputs-button'>Delete All</Button>
             </Col>*/}
-            <Col md={4}>
-              <Form.Control type="search" placeholder="search for a student"
+            <Col md={5} className='ms-auto'>
+              <Form.Control type="search" placeholder="Search..."
                             value={q} className='inputs-button'
                              onChange={(e) => setQ(e.target.value)}/>
             </Col>
@@ -121,7 +123,7 @@ export default function StudentComponent () {
             ))}
           </tbody>
         </table>
-        ) : (<h2 >no Students to show</h2>)}
+        ) : (<h2 className='d-flex justify-content-center p-4' >No Students To Show !</h2>)}
         </div>
       <div>
         

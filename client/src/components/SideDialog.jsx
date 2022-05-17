@@ -23,7 +23,7 @@ export default function SideDialog({user, open, setOpen}){
                       onSelect={() => setOpen()}>
                     <Nav.Link className={location.pathname=='/' ?  "Nav-Link Link-active" : "Nav-Link"} eventKey=''  
                               onClick={() => navigate('/')} >
-                        <FontAwesomeIcon icon={faHouse} /> <span>Dashboard</span>  </Nav.Link>
+                        <FontAwesomeIcon icon={faHouse} /> <span>Home</span>  </Nav.Link>
                     <Nav.Link className={location.pathname=='/students' ?  "Nav-Link Link-active" : "Nav-Link"} eventKey=''
                              onClick={() => navigate('/students')} >
                         <FontAwesomeIcon icon={faGraduationCap} /> <span>Students</span> </Nav.Link>
@@ -46,7 +46,7 @@ export default function SideDialog({user, open, setOpen}){
                 (<Nav id='sidebar' className="flex-column ">
                     <Nav.Link className={location.pathname=='/' ?  "Nav-Link Link-active" : "Nav-Link"} eventKey=''
                              onClick={() => navigate('/')} >
-                        <FontAwesomeIcon icon={faHouse} /> <span>Dashboard</span> </Nav.Link>
+                        <FontAwesomeIcon icon={faHouse} /> <span>Home</span> </Nav.Link>
                     <Nav.Link className={location.pathname=='/grades' ?  "Nav-Link Link-active" : "Nav-Link"} eventKey=''
                              onClick={() => navigate('/grades')} >
                         <FontAwesomeIcon icon={faPenClip} /> <span>Evaluation</span> </Nav.Link>

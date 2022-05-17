@@ -1,7 +1,5 @@
-.App {
-  
-  
-}
+/*.App { 
+}*/
 
 
 .Navbar {
@@ -26,13 +24,17 @@
   color: #838a8a;
   
 }
+.Nav-Link > span:hover {
+  color: #063d80;
+  
+}
 .Link-active {
   background-color: #ebedf7;
   border-radius: 5px;
   color: #063d80;
 }
 .Link-active > span{
-  color: #063d80;
+  color: #004aa5;
 }
 
 
@@ -55,31 +57,10 @@
   background-color: #ebedf7;
   
 }
-
-@media (min-width: 767.98px) {
-  .sidebar {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    padding: 70px 0 0;
-    
-  }
-  .sidebar-collapse {
-    
-    height: calc(100vh - 70px);
-    
-    
-  }
-  .main-section {
-    display: flex;
-    justify-content: center;
-  }
+.group-students {
+  padding-left: 0;
+  padding-right: 0;
 }
-
-
-
-
 .inputs-container {
   display: flex;
   justify-content: center;
@@ -99,6 +80,41 @@
   height: 3.25rem;
   border-radius: 7px;
 }
+
+@media (min-width: 767.98px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    padding: 70px 0 0;
+    
+  }
+  .sidebar-collapse {
+    height: calc(100vh - 70px);
+  }
+  .main-section {
+    position: relative;
+    height: calc(100vh - 70px);
+    overflow-y: auto;
+  }
+  .group-students {
+    padding-left: 1.5rem;
+    padding-right: 0;
+  }
+  .groups-container {
+    
+  }
+  .inputs-row {
+    width: 90%;
+    gap: .5rem;
+  }
+  
+}
+
+
+
+
 
 
 .button-primary {
@@ -158,13 +174,55 @@
 }
 
 
-
-
-
-.list-group {
-  margin-bottom: 10px;
-  border-radius: 15px;
+.groups-section {
+  background-color: white;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  border-radius: .3rem;
 }
+
+.groups-section-header {
+  background-color: #063d80;
+  color: #ebedf7;
+  margin: -1rem -1rem 1rem;
+  padding: 1rem;
+  border-top-left-radius: .3rem;
+  border-top-right-radius: .3rem;
+}
+.groups-section-button {
+  width: 100%;
+  height: 3rem;
+  margin-top: 1rem;
+  background-color: #ebedf7;
+  border-color: #063d80;
+  color: #063d80;
+}
+.groups-section-button:hover {
+  background-color: #ebedf74d;
+  border-color: #063d80;
+  color: #063d80;
+}
+.groups-section-button:focus {
+  background-color: #ebedf7;
+  border-color: #063d80;
+  color: #063d80;
+}
+.groups-section-list-group {
+  height: 80%;
+  overflow-y: auto;
+  
+}
+.trash-icon {
+  margin-left: auto;
+  font-size: x-large;
+}
+.trash-icon:hover {
+ color: red;
+}
+
+
+
+
 /*
 .student-table {
   
@@ -306,20 +364,14 @@
 
 
 
-
 .login {
-  display: flex;
-  justify-content: center;
-  
-  padding-top: 5%;
-  margin-left: 0px;
+  background-color: #063d80;
 }
-.login-card{
-  width: 400px;
+.login-col{
+  background-color: white;
 }
-.login-button {
-  width: 100%;
-}
+
+
 
 
 

@@ -30,8 +30,10 @@ export default function CoursesComponent () {
         const  coursesData  = await axios.get('http://localhost:3000/courses')
         const promotionsData  = await axios.get('http://localhost:3000/promotions')
         const teachersData  = await axios.get('http://localhost:3000/users?role=Teacher')
-        console.log(teachersData.data)
+        //console.log(teachersData.data) const l1 = coursesData.data.filter(item => item.major==="L1").map(item => item._id);console.log(l1);
         
+        
+
         setCourses(coursesData.data);
         setPromotions(promotionsData.data)
         setTeachers(teachersData.data);
@@ -129,10 +131,10 @@ export default function CoursesComponent () {
     <div className=''>
       <Container fluid className='inputs-container bg-white ' >
         <Row className="inputs-row">
-          <Col md={3}>
-            <Form.Group className="mb-3" >
+          <Col md={4}>
+            <Form.Group className="" >
               <Form.Select className='inputs-button' onChange={(e) => setQ(state => ({...state, major: e.target.value}))} aria-label="promotion select">
-                  <option >choose..</option>
+                  <option >Major...</option>
                   <option value="L1" >L1</option>
                   <option value="L2" >L2</option>
                   <option value="L3" >L3</option>
@@ -141,16 +143,16 @@ export default function CoursesComponent () {
               </Form.Select>
             </Form.Group>
           </Col>
-          <Col md={3}>
-            <Form.Group className="mb-3" >
+          <Col md={4}>
+            <Form.Group className="" >
               <Form.Select className='inputs-button' onChange={(e) => setQ(state => ({...state, semester: e.target.value}))} aria-label="semester select">
-                  <option >choose..</option>
+                  <option >Semester...</option>
                   <option value="1" >semester 1</option>
                   <option value="2" >semester 2</option>
               </Form.Select>
             </Form.Group>
           </Col>
-          <Col md={3}>
+          <Col md={3} className='ms-auto'>
             <Button className='inputs-button button-primary' onClick={() => {setUpdateToggle(false); setFiltered(Search(courses));}}>
               Apply
             </Button>

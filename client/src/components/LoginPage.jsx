@@ -34,14 +34,14 @@ export default function LoginPage({setUserInfo}) {
     
     return (
     <>
-        <div className="login" >
-            <Card  className="login-card">
-                <Form onSubmit={handleLogin}>
-                <Card.Header as="h5" className="text-center" style={{backgroundColor: "#ededed", color: "#232d5e"}}>Login To Continue</Card.Header>
-                <Card.Body>
-                   
-                             
-                         <Form.Group className="mb-3" >
+        <Container className="h-100 d-flex justify-content-center
+                             align-items-center" >
+            <Row  className="w-50 h-50 ">
+                <Col md={9} className='mx-auto login-col rounded-3 '>
+                    
+                    <Form onSubmit={handleLogin} className='d-flex flex-column h-100'>
+                        <h4 className='align-self-center p-4'>Login To Continue</h4>
+                        <Form.Group  className="mb-3" >
                             <Form.Label className='cred-label'>Username : </Form.Label>
                             <Form.Control type="text" placeholder="enter username..." value={username}
                                         onChange={(e) => setUsername(e.target.value)}
@@ -55,18 +55,18 @@ export default function LoginPage({setUserInfo}) {
                         </Form.Group>
                         {error &&
                         <Alert variant="danger">
-                            <Alert.Heading as="h5" className='d-flex justify-content-center'>{error}</Alert.Heading>
+                            <Alert.Heading as="h4" className=''>{error}</Alert.Heading>
                         </Alert>
                         }
-                </Card.Body>
-                <Card.Footer style={{backgroundColor: "#ededed"}}><Button style={{backgroundColor: "#232d5e", color: "#fafafa"}}
-                             type="submit" className='login-button' >
-                                     LOG IN </Button>
-                </Card.Footer>
-                </Form>
-            </Card>
-        </div>    
-       
+                    
+                        <Button  type="submit" className='d-block mt-auto mb-3 login' > 
+                            LOG IN 
+                        </Button>
+                        
+                    </Form>
+                </Col>
+            </Row>
+        </Container>
     </>
     );
 }

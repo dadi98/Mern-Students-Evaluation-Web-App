@@ -142,7 +142,7 @@ export default function GradeComponent () {
       <div className=''>
           <Container fluid className='inputs-container bg-white ' >
             <Row className="inputs-row">
-              <Col md={3}>
+              <Col md={4}>
                 <Form.Group className="" >
                   <Form.Select  onChange={(e) => {/**/setGroup(undefined);
                                                       setCourse(courses.filter(course => course._id===e.target.value)[0])
@@ -150,7 +150,7 @@ export default function GradeComponent () {
                                                       }}
                                 aria-label="semester select"
                                 className='inputs-button'>
-                      <option >choose..</option>
+                      <option >Course...</option>
                       {courses?.filter(course => JSON.parse(localStorage.getItem('user')).role==='Admin' ? true : 
                                         course.teacher?._id===JSON.parse(localStorage.getItem('user'))._id)
                               .map(course => 
@@ -166,38 +166,35 @@ export default function GradeComponent () {
                 </Button>
                     </Col>*/}
               { course && 
-                <>
-                  <Col md={3}>
-                    <Form.Group className="" >
-                      <Form.Select  onChange={(e) => setType(e.target.value)}
-                                    aria-label="type select"
-                                    className='inputs-button'>
-                            <option selected>choose..</option>
-                            {course.type === 'CM' ? 
-                            <>
-                            <option  value="Control">Control</option>
-                            <option  value="Exam">Exam</option>
-                            <option value="Replacement">Replacement</option>
-                            <option value="Make up">Make up</option>
-                            </> : 
-                            <option value="Lab">Lab</option>
-                            }
-                      </Form.Select>
-                    </Form.Group>
-                  </Col>
-                  <Col md={3}>
-                    <Form.Group className="" >
-                      <Form.Select  onChange={(e) => setGroup(course.promotion?.groups?.filter(group => group.groupNumber===e.target.value)[0])} 
-                                    aria-label="type select"
-                                    className='inputs-button'>
-                        <option selected>choose..</option>
-                        { course.promotion?.groups?.map(group =>
-                            <option key={group.groupNumber} value={group.groupNumber} >group {group.groupNumber}</option>
-                            )}
-                      </Form.Select>
-                    </Form.Group>
-                  </Col>
-                </>
+                
+                  <><Col md={3} className='ms-auto'>
+                <Form.Group className="">
+                  <Form.Select onChange={(e) => setType(e.target.value)}
+                    aria-label="type select"
+                    className='inputs-button'>
+                    <option selected>Evaluation type...</option>
+                    {course.type === 'CM' ?
+                      <>
+                        <option value="Control">Control</option>
+                        <option value="Exam">Exam</option>
+                        <option value="Replacement">Replacement</option>
+                        <option value="Make up">Make up</option>
+                      </> :
+                      <option value="Lab">Lab</option>}
+                  </Form.Select>
+                </Form.Group>
+              </Col><Col md={3}>
+                  <Form.Group className="">
+                    <Form.Select onChange={(e) => setGroup(course.promotion?.groups?.filter(group => group.groupNumber === e.target.value)[0])}
+                      aria-label="type select"
+                      className='inputs-button'>
+                      <option selected>Group...</option>
+                      {course.promotion?.groups?.map(group => <option key={group.groupNumber} value={group.groupNumber}>group {group.groupNumber}</option>
+                      )}
+                    </Form.Select>
+                  </Form.Group>
+                </Col></>
+                
               }
             </Row>
           </Container>
@@ -218,7 +215,7 @@ export default function GradeComponent () {
                                 <tr key={student._id}>
                                     <td>{student.studentId} </td>
                                     <td>{student.lastName} {student.firstName} </td>
-                                    <td><Form.Control type="text" 
+                                    <td><Form.Control type="search"
                                             onChange={e => updateValue(e, course._id, student._id)} /></td>
                                     <td><Form.Check 
                                           ref={ el => inputRef.current[student._id] = el}

@@ -54,20 +54,20 @@ export default function PromotionComponent () {
   return (
     <>  
       <div className=''>
-        <Container fluid className='inputs-container bg-white ' >
+        <Container fluid className='inputs-container bg-white' >
           <Row className="inputs-row">
             <Col md={2}  >
                 <Button variant="" 
                         onClick={() => setAddModal(true)}
                         className='inputs-button button-primary' >Add promotion</Button>
             </Col>
-            <Col md={4}>
+            <Col md={2}>
                 <Button variant=""
                         onClick={() => setRefresh(!refresh)}
                         className='inputs-button button-secondary' >Refresh</Button>
             </Col>
-            <Col md={3}>
-                <Form.Control type="search" placeholder="search for a promotion" value={q}
+            <Col md={5} className='ms-auto'>
+                <Form.Control type="search" placeholder="Search..." value={q}
                               className='inputs-button' onChange={(e) => setQ(e.target.value)}/>
             </Col>
           </Row>
@@ -101,7 +101,7 @@ export default function PromotionComponent () {
                     </tr>
                     ))}
                 </tbody>
-            </table>) : (<h5>no promotions to show</h5>)}
+            </table>) : (<h2 className='d-flex justify-content-center p-4' >No Promotions To Show !</h2>)}
             
         </div>
         <div>

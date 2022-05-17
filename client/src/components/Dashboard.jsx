@@ -4,8 +4,8 @@ export default function Dashboard() {
 
     return ( 
     <>
-        <div className='route'>
-            <h1>this is Dashboard</h1>
+        <div className=''>
+            
         </div>
     </> 
     );
