@@ -110,6 +110,7 @@ export default function AssignStudents ({promoId, groupId}) {
 
                       <ListGroup.Item as="li" key={student._id}>
                         <Form.Check
+                          data-testid='form-check'
                           ref={el => inputRef.current[student._id] = el}
                           type="checkbox"
                           id={student._id}

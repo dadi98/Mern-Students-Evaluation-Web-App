@@ -2,6 +2,9 @@ import * as React from 'react';
 import axios from "axios";
 import {Row, Col, Container, Form} from 'react-bootstrap';
 
+//import { PDFViewer } from '@react-pdf/renderer';
+//import MyDocument from './MyDocument';
+
 import courseAverage from '../functions/courseAverage';
 import semesterAverage from '../functions/semesterAverage';
 ///// POPULATION STUDENT COURSE
@@ -168,6 +171,7 @@ export default function DelibirationComponent() {
             </table>
             }
         </div>
+        
         </div>
     </>
     );

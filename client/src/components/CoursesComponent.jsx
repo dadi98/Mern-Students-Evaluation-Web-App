@@ -133,7 +133,8 @@ export default function CoursesComponent () {
         <Row className="inputs-row">
           <Col md={4}>
             <Form.Group className="" >
-              <Form.Select className='inputs-button' onChange={(e) => setQ(state => ({...state, major: e.target.value}))} aria-label="promotion select">
+              <Form.Select className='inputs-button' title='major select' value={q.major}
+                           onChange={(e) => setQ(state => ({...state, major: e.target.value}))} aria-label="promotion select">
                   <option >Major...</option>
                   <option value="L1" >L1</option>
                   <option value="L2" >L2</option>
@@ -145,7 +146,8 @@ export default function CoursesComponent () {
           </Col>
           <Col md={4}>
             <Form.Group className="" >
-              <Form.Select className='inputs-button' onChange={(e) => setQ(state => ({...state, semester: e.target.value}))} aria-label="semester select">
+              <Form.Select className='inputs-button' title='semester select'
+                           onChange={(e) => setQ(state => ({...state, semester: e.target.value}))} aria-label="semester select">
                   <option >Semester...</option>
                   <option value="1" >semester 1</option>
                   <option value="2" >semester 2</option>
@@ -160,10 +162,11 @@ export default function CoursesComponent () {
 
         </Row>
       </Container>
-      <div className='tables'>
-       { filtered.length !== 0 && 
+      <div className='tables'  >
+      {filtered.length !== 0 && 
+        
        <>
-        <table className="table table-bordered table-hover course-table" >
+        <table data-testId='button' className="table table-bordered table-hover course-table" >
           <thead>
             <tr>
               <th>Code</th>
@@ -202,7 +205,7 @@ export default function CoursesComponent () {
           </tbody>
         </table>
         <div className='action-button'>
-          <Button className='edit' variant='secondary' onClick={() => setUpdateToggle(true)}>Edit</Button>
+          <Button  className='edit' variant='secondary' onClick={() => setUpdateToggle(true)}>Edit</Button>
           <Button className='submit'  onClick={postUpdates}>Submit</Button>
         </div>
         </>

@@ -6,7 +6,7 @@ export default function NavBar({user, setUserNull, open, setOpen}){
 
     const go_To = useNavigate();
 
-    const logOut = ( ) => {
+    const logOut = () => {
         localStorage.removeItem('user');
         setUserNull();
         go_To("/login");
@@ -38,7 +38,7 @@ export default function NavBar({user, setUserNull, open, setOpen}){
     return (
         <>  
             <Navbar className='Navbar'>
-                <Navbar.Brand href="#home" className='text-white px-4' >EvaluaTe</Navbar.Brand>
+                <Navbar.Brand onClick={() => go_To("/")} className='text-white px-4' >EvaluaTe</Navbar.Brand>
                 {/*<Navbar.Toggle aria-controls="basic-navbar-nav" />*/}
                 <div className="Nav me-5 ms-auto" >
                 <Nav >
@@ -50,16 +50,13 @@ export default function NavBar({user, setUserNull, open, setOpen}){
                     >
                         <span className="navbar-toggler-icon ms-auto"></span>
                     </Button>
-                    <NavDropdown  id='nav-dropdown'
-                                title={<span className="text-white">{user.username}
-                                       </span>}
-                                drop="down" 
-                                align="end" id="basic-nav-dropdown">
-                        
-                        <NavDropdown.Item >Profile</NavDropdown.Item>
-                        <NavDropdown.Divider />
-                        <NavDropdown.Item  onClick={logOut}>Log out</NavDropdown.Item>
-                    </NavDropdown>
+                    <Button
+                        onClick={logOut}
+                        className=''
+                    >
+                       Log out   
+                    </Button>
+                    
                 </Nav>
                 </div>
             </Navbar>

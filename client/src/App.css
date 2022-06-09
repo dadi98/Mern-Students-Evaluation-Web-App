@@ -112,6 +112,18 @@
   
 }
 
+.dash-row {
+  height: 12rem;
+  width:75%;
+  color: #063d80;
+}
+
+.promo-button {
+  font-size:x-large;
+  font-weight: bold;
+  background-color: #c4d3f5;
+  color: #063d80;
+}
 
 
 
