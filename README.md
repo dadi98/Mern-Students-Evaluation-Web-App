@@ -12,6 +12,6 @@
     - MongoDB
 
 # Screenshots
-
-    [![pic.jpg](https://i.postimg.cc/PrkmbMFT/pic.jpg)](https://postimg.cc/SjD2kchv)
+    
+    ![home](https://user-images.githubusercontent.com/90778196/180059624-ca0fc145-ee4b-4b3e-b0d6-003b7759a8d5.PNG)
 
