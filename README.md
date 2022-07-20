@@ -13,5 +13,5 @@
 
 # Screenshots
 
-    ![home](https://user-images.githubusercontent.com/90778196/180056323-ebae9dd5-d5b4-4b9b-87d2-0882bd317ec3.PNG)
+    ![image](https://user-images.githubusercontent.com/90778196/180056323-ebae9dd5-d5b4-4b9b-87d2-0882bd317ec3.PNG)
 
